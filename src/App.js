@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Suspense, lazy } from "react";
-import { Route, Switch, useHistory, useLocation } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import Navbar from "./common/components/Navbar";
 import { Layout } from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
@@ -9,8 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import ProtectRoute from "./UserManagement/components/auth/ProtectRoute";
 import { setIsAuth } from "./UserManagement/actions/AuthManagementAction";
 import { getUserDetails } from "./UserManagement/apis/UserManagementAPI";
-import { Redirect } from "react-router-dom";
-import { ADMIN, DASHBOARD_ADMIN } from "./common/utils/Constants";
 // import useRoutes from "./routes";
 const { Sider, Header, Content } = Layout;
 const ProfileRoot = lazy(() =>
@@ -19,13 +17,13 @@ const ProfileRoot = lazy(() =>
 const AuthRoot = lazy(() =>
   import("./UserManagement/components/auth/AuthRoot")
 );
-const PageNotFound = lazy(() => import("./common/components/PageNotFound"));
+// const PageNotFound = lazy(() => import("./common/components/PageNotFound"));
 
 const App = () => {
-  const location = useLocation();
+  // const location = useLocation();
   const history = useHistory();
   const isAuth = useSelector(state => state.AuthReducer.isAuth);
-  const userDetails = useSelector(state => state.UserReducer.userDetails);
+  // const userDetails = useSelector(state => state.UserReducer.userDetails);
 
   const dispatch = useDispatch();
   useEffect(() => {

@@ -14,7 +14,6 @@ const TransactionsTable = ({loading,setLoading}) => {
   const transactionDetails = useSelector(state => state.TransactionReducer);
   const dispatch = useDispatch();
   const [modal1Open, setModalOpen] = useState(false);
-  const [isEditData, setIsEditData] = useState({});
   const columns = [
     {
       title: "",

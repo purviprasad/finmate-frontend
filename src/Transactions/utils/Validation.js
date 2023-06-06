@@ -22,7 +22,7 @@ export const AddFormValidate = async (reqObj, AddFormErrors) => {
     if (!reqObj.date) {
       AddFormErrors.date = "Date Field cannot be empty";
       errorsCount++;
-    }else if (reqObj.date && Date.parse(reqObj.date) === NaN) {
+    }else if (reqObj.date && isNaN(Date.parse(reqObj.date))) {
       AddFormErrors.date = "Date Field is Invalid";
       errorsCount++;
     } else {
@@ -31,7 +31,7 @@ export const AddFormValidate = async (reqObj, AddFormErrors) => {
     if (!reqObj.category) {
       AddFormErrors.category = "Category Field cannot be empty";
       errorsCount++;
-    } else if(reqObj.category==="Other" && (!reqObj.category_others || reqObj.category_others?.trim()=="")){
+    } else if(reqObj.category==="Other" && (!reqObj.category_others || reqObj.category_others?.trim()==="")){
       AddFormErrors.category_others = "Category Others Field cannot be empty";
       errorsCount++;
     }

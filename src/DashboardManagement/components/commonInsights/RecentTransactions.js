@@ -1,6 +1,5 @@
 import React,{useEffect} from "react";
 import { Table, Tag, notification } from 'antd';
-import moment from "moment";
 import {loadRecentTransactionsDetails} from "../../apis/DashboardManagementAPI";
 import { useDispatch,useSelector } from "react-redux";
 

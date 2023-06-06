@@ -3,17 +3,14 @@ import { Menu, Affix } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import {
   FolderViewOutlined,
-  UserOutlined,
   PieChartOutlined,
   RiseOutlined,
   FallOutlined,
   BankOutlined,
 } from "@ant-design/icons";
-import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const location = useLocation();
-  const userDetails = useSelector(state => state.UserReducer.userDetails);
 
   const menuKeys = {
     "/": "1",

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { DatePicker, Select, Space,Row, Col, Spin, Card, notification } from 'antd';
-import { BarsOutlined } from "@ant-design/icons";
-import MonthlyInsights from "./DashboardInsights/MonthlyInsights";
 import { resetDashboardState } from "../actions/DashboardManagementAction";
 import {getMonthDashboardDetails} from "../apis/DashboardManagementAPI";
 import { useDispatch,useSelector } from "react-redux";

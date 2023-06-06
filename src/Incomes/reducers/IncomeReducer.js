@@ -1,4 +1,4 @@
-import { SET_INCOME_TRANSACTIONS, SET_EDIT_DATA, RESET_EDIT_DATA } from "../utils/Constants";
+import { SET_INCOME_TRANSACTIONS } from "../utils/Constants";
 const initialState = {
   incomeTransactions: [],
   totalIncome: 0,

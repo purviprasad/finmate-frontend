@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import AuthCss from "../../css/Auth.module.css";
 import Login from "./Login";
 import Register from "./Register";
-import { Row, Tabs, Col, Card } from "antd";
+import { Row, Col, Card } from "antd";
 import "../../css/AuthOverride.css";
 // const { TabPane } = Tabs;
 

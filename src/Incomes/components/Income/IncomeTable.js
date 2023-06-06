@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import { Space, Table, Popconfirm,notification,Modal } from "antd";
 import { EditFilled, DeleteFilled } from "@ant-design/icons";
 import AddForm from "../../../common/components/AddForm";
@@ -7,7 +7,6 @@ import { useDispatch,useSelector } from "react-redux";
 import {deleteIncomeTransaction} from "../../apis/IncomeManagementAPI";
 // import {setEditDetails,resetEditState} from "../../actions/IncomeManagementAction";
 import {setEditDetails,resetEditState} from "../../../common/actions/CommonAction";
-import EditForm from "./EditForm";
 
 const IncomeTable = ({loading,setLoading}) => {
   const [modal1Open, setModalOpen] = useState(false);

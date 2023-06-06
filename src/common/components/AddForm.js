@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Col,
   Card,
   Button,
   notification,
@@ -27,7 +26,6 @@ import {
   SAVINGS_CATEGORY,
 } from "../utils/Constants";
 import {resetEditState} from "../actions/CommonAction";
-const { Option } = Select;
 
 const AddForm = ({ addForm, setAddForm, AddFormErrors, setAddFormErrors, reducer,formType,setModal }) => {
   // set addFormData from reducer
@@ -65,7 +63,6 @@ const AddForm = ({ addForm, setAddForm, AddFormErrors, setAddFormErrors, reducer
         remarks:"",});
     setAddFormErrors({});
   };
-  const UserReducer = useSelector(state => state.UserReducer);
   const handleSave = async () => {
     setLoading(true);
     // setAddForm({ ...addForm, type: formType});

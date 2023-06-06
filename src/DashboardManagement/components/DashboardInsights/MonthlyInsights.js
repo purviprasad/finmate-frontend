@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import moment from "moment";
-import { DatePicker, notification, Row, Col, Card, Spin } from "antd";
-import { getMonthDashboardDetails } from "../../apis/DashboardManagementAPI";
-import { useDispatch, useSelector } from "react-redux";
+import { Row, Col, Card, Spin } from "antd";
+import { useSelector } from "react-redux";
 import DashboardInsights from "./DashboardInsights";
 import {
   DollarCircleOutlined,
@@ -19,40 +17,10 @@ const MonthlyInsights = ({type, value}) => {
   // eslint-disable-next-line
   const [loading, setLoading] = useState(false);
   const monthMap = useSelector(state => state.DashboardReducer.monthMap);
-  const dashboardDetails = useSelector(state => state.DashboardReducer);
-  const dispatch = useDispatch();
-  const loadDashboardDetails = async month => {
-    month = month
-      ? month
-      : `${new Date().getFullYear()}-${new Date().getMonth() + 1}`;
-    setLoading(true);
-    await getMonthDashboardDetails(
-      month?.split("-")?.[0],
-      month?.split("-")?.[1],
-      dispatch
-    ).catch(err => {
-      notification.error({
-        message: err,
-        description: "Failed to load Month Dashboard Details",
-      });
-    });
-
-    setLoading(false);
-  };
   useEffect(() => {
     // loadDashboardDetails(month);
     // eslint-disable-next-line
   }, []);
-  const handleMonth = (date, dateString) => {
-    let month = dateString;
-
-    // if clear the date
-    if (dateString === "") {
-      month = `${new Date().getFullYear()}-${new Date().getMonth() + 1}`;
-    }
-    setMonth(month);
-    // loadDashboardDetails(month);
-  };
   return (
     <>
  

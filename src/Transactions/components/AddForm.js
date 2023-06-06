@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Col,
   Card,
   Button,
   notification,
@@ -27,7 +26,6 @@ import {
   SAVINGS_CATEGORY,
 } from "../../common/utils/Constants";
 import {resetEditState} from "../actions/TransactionManagementAction";
-const { Option } = Select;
 
 const AddForm = ({ addForm, setAddForm, AddFormErrors, setAddFormErrors,setModal }) => {
   // set addFormData from reducer

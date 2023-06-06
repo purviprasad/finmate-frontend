@@ -1,20 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Segmented } from "antd";
-import { BarsOutlined } from "@ant-design/icons";
 import {loadIncomeTransactionsDetails} from "../apis/IncomeManagementAPI";
-import { resetDashboardState } from "../actions/IncomeManagementAction";
 import { useDispatch,useSelector } from "react-redux";
-import { DatePicker, notification, Row, Col, Card, Spin } from "antd";
+import { DatePicker, notification, Row, Col } from "antd";
 import moment from "moment";
-import {
-  DollarCircleOutlined,
-  RiseOutlined,
-  FallOutlined,
-  BankOutlined,
-} from "@ant-design/icons";
 import AddForm from "../../common/components/AddForm";
 import IncomeTable from "./Income/IncomeTable";
-import IncomeReducer from "../reducers/IncomeReducer";
 const IncomeDetails = () => {
   const [addForm,setAddForm] = useState({});
   const [AddFormErrors,setAddFormErrors] = useState({});
@@ -33,7 +23,6 @@ const IncomeDetails = () => {
     
     loadIncomeDetails(month);
   };
-  const monthMap = useSelector(state => state.DashboardReducer.monthMap);
   const incomeDetails = useSelector(state => state.IncomeReducer);
   const dispatch = useDispatch();
 

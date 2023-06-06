@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Segmented } from "antd";
-import { BarsOutlined } from "@ant-design/icons";
-
-import { resetDashboardState } from "../actions/ExpenseManagementAction";
 import { useDispatch,useSelector } from "react-redux";
-import { DatePicker, notification, Row, Col, Card, Spin } from "antd";
+import { DatePicker, notification, Row, Col } from "antd";
 import moment from "moment";
-import {
-  DollarCircleOutlined,
-  RiseOutlined,
-  FallOutlined,
-  BankOutlined,
-} from "@ant-design/icons";
 import AddForm from "../../common/components/AddForm";
 import ExpenseTable from "./Expense/ExpenseTable";
 import {loadExpenseTransactionsDetails} from "../apis/ExpenseManagementAPI"
@@ -33,7 +23,6 @@ const ExpenseDetails = () => {
     setMonth(month);
     loadExpenseDetails(month);
   };
-  const monthMap = useSelector(state => state.DashboardReducer.monthMap);
   const dispatch = useDispatch();
   const expenseDetails = useSelector(state => state.ExpenseReducer);
   const loadExpenseDetails = async (monthData) => {
