@@ -50,12 +50,10 @@ const ExpenseDetails = () => {
   }, []);
   return (
     <>
-      <div className="ExpenseDetailsContainer">
+      <div >
         
         <Row
         style={{
-          // padding: "20px",
-          // background: "#ececec",
           width: "100%",
           display: "flex",
           justifyContent: "space-evenly",
@@ -81,7 +79,7 @@ const ExpenseDetails = () => {
           </Col>
         </Row>
         <div
-          className="pageHeader"
+          
           style={{ position: "sticky", left: 0, margin: "5px 0px 0px 0px" }}
         >
           Month:{" "}

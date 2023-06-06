@@ -51,7 +51,7 @@ const SavingsDetails = () => {
   }, []);
   return (
     <>
-      <div className="SavingsDetailsContainer">
+      <div >
         
         <Row
         style={{
@@ -82,7 +82,7 @@ const SavingsDetails = () => {
           </Col>
         </Row>
         <div
-          className="pageHeader"
+          
           style={{ position: "sticky", left: 0, margin: "5px 0px 0px 0px" }}
         >
           Month:{" "}

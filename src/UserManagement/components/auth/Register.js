@@ -13,7 +13,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import AuthCss from "../../css/Auth.module.css";
 
-const Register = ({setActivePage}) => {
+const Register = ({ setActivePage }) => {
   const onPageChange = () => {
     setActivePage("login");
   };
@@ -136,37 +136,27 @@ const Register = ({setActivePage}) => {
   return (
     <div>
       <Space direction="vertical">
-        <span className="label">Name</span>
+        <span>Name</span>
         <Input
           id="register-name"
           status={isError.name}
           placeholder="Type Name"
           name="name"
           onChange={handleChange}
-          prefix={
-            <IdcardOutlined
-              className="site-form-item-icon"
-              style={{ paddingRight: "5px" }}
-            />
-          }
+          prefix={<IdcardOutlined style={{ paddingRight: "5px" }} />}
           onPressEnter={handleSubmit}
         />
-        <span className="label">Username</span>
+        <span>Username</span>
         <Input
           id="register-username"
           status={isError.username}
           placeholder="Type Username"
           name="username"
           onChange={handleChange}
-          prefix={
-            <UserOutlined
-              className="site-form-item-icon"
-              style={{ paddingRight: "5px" }}
-            />
-          }
+          prefix={<UserOutlined style={{ paddingRight: "5px" }} />}
           onPressEnter={handleSubmit}
         />
-        <span className="label">Email</span>
+        <span>Email</span>
         <Input
           id="register-email"
           status={isError.email}
@@ -174,42 +164,27 @@ const Register = ({setActivePage}) => {
           name="email"
           type="email"
           onChange={handleChange}
-          prefix={
-            <MailOutlined
-              className="site-form-item-icon"
-              style={{ paddingRight: "5px" }}
-            />
-          }
+          prefix={<MailOutlined style={{ paddingRight: "5px" }} />}
           onPressEnter={handleSubmit}
         />
-        <span className="label">Password</span>
+        <span>Password</span>
         <Input.Password
           id="register-password"
           status={isError.password}
           placeholder="Password"
           name="password"
           onChange={handleChange}
-          prefix={
-            <LockOutlined
-              className="site-form-item-icon"
-              style={{ paddingRight: "5px" }}
-            />
-          }
+          prefix={<LockOutlined style={{ paddingRight: "5px" }} />}
           onPressEnter={handleSubmit}
         />
-        <span className="label">Confirm Password</span>
+        <span>Confirm Password</span>
         <Input.Password
           id="register-confirmpassword"
           status={isError.confirmpassword}
           placeholder="Confirm password"
           name="confirmpassword"
           onChange={handleChange}
-          prefix={
-            <LockOutlined
-              className="site-form-item-icon"
-              style={{ paddingRight: "5px" }}
-            />
-          }
+          prefix={<LockOutlined style={{ paddingRight: "5px" }} />}
           onPressEnter={handleSubmit}
         />
         <div style={{ textAlign: "center", marginTop: "10px" }}>
@@ -225,9 +200,10 @@ const Register = ({setActivePage}) => {
           </Button>
         </div>
         <div style={{ textAlign: "center", marginTop: "10px" }}>
-          Already have an account? <Button type="link" onClick={onPageChange}>
-              Login
-            </Button> 
+          Already have an account?{" "}
+          <Button type="link" onClick={onPageChange}>
+            Login
+          </Button>
         </div>
       </Space>
     </div>

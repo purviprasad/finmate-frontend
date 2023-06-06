@@ -1,17 +1,7 @@
 .container {
   height: 100vh;
   width: 100%;
-  background: rgb(241, 212, 216); 
-  background: -webkit-linear-gradient(
-    to center,
-    #ffffff,
-    rgb(248, 192, 200)
-  ); 
-  background: linear-gradient(
-    to center,
-    #ffffff,
-    rgb(248, 192, 200)
-  ); 
+  background: rgb(248, 192, 200); 
 }
 
 .loginButton {
@@ -61,5 +51,4 @@
 
 .requestForm {
   border-radius: 20px;
-  /* margin-top:5%; */
 }

@@ -31,14 +31,16 @@ const initialState = {
 const TransactionReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_TRANSACTION_DETAILS: {
-      console.log("action",action.payload)
+      console.log("action", action.payload);
       return {
         ...state,
         totalIncome: action.payload?.totalIncome,
         totalExpense: action.payload?.totalExpense,
         totalSavings: action.payload?.totalSavings,
         totalBalance: action.payload?.totalBalance,
-        transactionDetails: action.payload ?( action.payload.data.length > 0 && action.payload.data ):[],
+        transactionDetails: action.payload
+          ? action.payload.data?.length > 0 && action.payload.data
+          : [],
       };
     }
     case RESET_TRANSACTION_REDUCER: {
@@ -47,18 +49,18 @@ const TransactionReducer = (state = initialState, action) => {
       };
     }
     case SET_EDIT_DATA:
-      console.log("action.payload", action.payload)
+      console.log("action.payload", action.payload);
       return {
         ...state,
         isEdit: true,
         editData: action.payload,
       };
     case RESET_EDIT_DATA:
-        return {
-            ...state,
-            isEdit: false,
-            editData: {},
-        };
+      return {
+        ...state,
+        isEdit: false,
+        editData: {},
+      };
     default:
       return state;
   }

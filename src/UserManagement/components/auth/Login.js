@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Input, Space, Button, notification } from "antd";
 import { LoginOutlined, UserOutlined, LockOutlined } from "@ant-design/icons";
-import "../../css/LoginOverride.css";
 import { login } from "../../apis/AuthManagementAPI";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import AuthCss from "../../css/Auth.module.css";
+import "../../css/LoginOverride.css";
 
-const Login = ({setActivePage}) => {
+const Login = ({ setActivePage }) => {
   const onPageChange = () => {
     setActivePage("register");
   };
@@ -80,34 +80,24 @@ const Login = ({setActivePage}) => {
   return (
     <div>
       <Space direction="vertical">
-        <span className="label">Username or Email</span>
+        <span>Username or Email</span>
         <Input
           id="login-user"
           status={isError.user}
           placeholder="Type username/email..."
           name="user"
           onChange={handleChange}
-          prefix={
-            <UserOutlined
-              className="site-form-item-icon"
-              style={{ paddingRight: "5px" }}
-            />
-          }
+          prefix={<UserOutlined style={{ paddingRight: "5px" }} />}
           onPressEnter={handleSubmit}
         />
-        <span className="label">Password</span>
+        <span>Password</span>
         <Input.Password
           id="login-password"
           status={isError.password}
           placeholder="Type password..."
           name="password"
           onChange={handleChange}
-          prefix={
-            <LockOutlined
-              className="site-form-item-icon"
-              style={{ paddingRight: "5px" }}
-            />
-          }
+          prefix={<LockOutlined style={{ paddingRight: "5px" }} />}
           onPressEnter={handleSubmit}
         />
         <div style={{ textAlign: "center", marginTop: "10px" }}>
