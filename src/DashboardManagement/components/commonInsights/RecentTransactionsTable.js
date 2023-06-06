@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Tag, notification } from "antd";
 import { loadRecentTransactionsDetails } from "../../apis/DashboardManagementAPI";
 import { useDispatch, useSelector } from "react-redux";
 
-const RecentTransactions = () => {
-  const [recentloading, setLoading] = React.useState(false);
+const RecentTransactionsTable = () => {
+  const [recentloading, setRecentLoading] = useState(false);
   const dispatch = useDispatch();
   const columns = [
     {
@@ -57,7 +57,7 @@ const RecentTransactions = () => {
   ];
   const dashboardDetails = useSelector(state => state.DashboardReducer);
   const loadTransactionsDetails = async () => {
-    setLoading(true);
+    setRecentLoading(true);
     try {
       await loadRecentTransactionsDetails(10, dispatch);
     } catch (error) {
@@ -66,7 +66,7 @@ const RecentTransactions = () => {
         description: error ? error.message : "Something went wrong.",
       });
     } finally {
-      setLoading(false);
+      setRecentLoading(false);
     }
   };
   useEffect(() => {
@@ -85,4 +85,4 @@ const RecentTransactions = () => {
     />
   );
 };
-export default RecentTransactions;
+export default RecentTransactionsTable;

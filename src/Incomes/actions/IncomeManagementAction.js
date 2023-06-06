@@ -5,7 +5,7 @@ import {
   RESET_EDIT_DATA,
 } from "../utils/Constants";
 
-export const setEditDetails = (data) => {
+export const setEditDetails = data => {
   return {
     type: SET_EDIT_DATA,
     payload: data,
@@ -17,13 +17,13 @@ export const resetEditState = () => {
   };
 };
 
-export const setIncomeDetails = (data) => {
+export const setIncomeDetails = data => {
   return {
     type: SET_INCOME_TRANSACTIONS,
     payload: data,
   };
 };
-export const resetDashboardState = () => {
+export const resetIncomeState = () => {
   return {
     type: RESET_INCOME_REDUCER,
   };

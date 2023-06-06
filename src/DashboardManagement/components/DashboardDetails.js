@@ -19,7 +19,7 @@ import {
   FallOutlined,
   BankOutlined,
 } from "@ant-design/icons";
-import RecentTransactions from "./commonInsights/RecentTransactions";
+import RecentTransactionsTable from "./commonInsights/RecentTransactionsTable";
 import "../css/EditModalOverride.css";
 import moment from "moment";
 
@@ -69,7 +69,7 @@ const DashboardDetails = () => {
       dispatch(resetDashboardState());
     };
     // eslint-disable-next-line
-  }, [type]);
+  }, []);
 
   // eslint-disable-next-line
   const [loading, setLoading] = useState(false);
@@ -290,22 +290,19 @@ const DashboardDetails = () => {
             marginBottom: "10px",
           }}
         >
-          <Spin tip="Loading..." spinning={loading}>
-            <Card
-              title={
-                <>
-                  <div style={{ fontSize: "1.4rem" }}>Recent Transactions</div>
-                </>
-              }
-              hoverable
-              style={{ borderRadius: "20px" }}
-            >
-              <RecentTransactions />
-            </Card>
-          </Spin>
+          <Card
+            title={
+              <>
+                <div style={{ fontSize: "1.4rem" }}>Recent Transactions</div>
+              </>
+            }
+            hoverable
+            style={{ borderRadius: "20px" }}
+          >
+            <RecentTransactionsTable />
+          </Card>
         </Col>
       </Row>
-      {/* <MonthlyInsights type={type} value={value}/> */}
     </>
   );
 };
