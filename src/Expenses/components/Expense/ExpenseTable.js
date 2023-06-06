@@ -1,30 +1,36 @@
 import React, { useState } from "react";
-import { Space, Table,Popconfirm,notification,Modal } from 'antd';
+import { Space, Table, Popconfirm, notification, Modal } from "antd";
 import { EditFilled, DeleteFilled } from "@ant-design/icons";
 import AddForm from "../../../common/components/AddForm";
-import { useDispatch,useSelector } from "react-redux";
-import {setEditDetails,resetEditState} from "../../../common/actions/CommonAction";
-import {deleteExpenseTransaction} from "../../apis/ExpenseManagementAPI";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setEditDetails,
+  resetEditState,
+} from "../../../common/actions/CommonAction";
+import { deleteExpenseTransaction } from "../../apis/ExpenseManagementAPI";
 
 import "../../css/EditModalOverride.css";
-const ExpenseTable = ({loading,setLoading}) => {
+const ExpenseTable = ({ loading, setLoading }) => {
   const expenseDetails = useSelector(state => state.ExpenseReducer);
   const [modal1Open, setModalOpen] = useState(false);
   // const [isEditData, setIsEditData] = useState({});
-  const [addForm,setAddForm] = useState({});
-  const [AddFormErrors,setAddFormErrors] = useState({});
+  const [addForm, setAddForm] = useState({});
+  const [AddFormErrors, setAddFormErrors] = useState({});
   const dispatch = useDispatch();
 
   const columns = [
     {
       title: "",
       key: "t_id",
-      render: (record) => (
+      render: record => (
         <Space
           size="middle"
           style={{ display: "flex", justifyContent: "center" }}
         >
-          <EditFilled style={{ color: "#1890ff", cursor: "pointer" }} onClick={()=>handleEdit(record)}/>
+          <EditFilled
+            style={{ color: "#1890ff", cursor: "pointer" }}
+            onClick={() => handleEdit(record)}
+          />
         </Space>
       ),
     },
@@ -37,8 +43,12 @@ const ExpenseTable = ({loading,setLoading}) => {
       title: "Category",
       // dataIndex: "category",
       key: "category",
-      render: (record) => (
-        <>{record.category==="Other"?record.category_others:record.category}</>
+      render: record => (
+        <>
+          {record.category === "Other"
+            ? record.category_others
+            : record.category}
+        </>
       ),
     },
     {
@@ -56,12 +66,11 @@ const ExpenseTable = ({loading,setLoading}) => {
       key: "remarks",
       dataIndex: "remarks",
       // render: (record) => record?.remarks ? record?.remarks : null
-      
     },
     {
       title: "",
       key: "id",
-      render: (record) => (
+      render: record => (
         <Space
           size="middle"
           style={{ display: "flex", justifyContent: "center" }}
@@ -83,37 +92,32 @@ const ExpenseTable = ({loading,setLoading}) => {
     },
   ];
 
-    const handleEdit = (record) => {
-      console.log(record);
-      // populate add form reducer state - editing
-      // setIsEditData(record);
-      setAddForm(record);
-      dispatch(setEditDetails(record));
-      setModalOpen(true);
-    };
-    const handleDelete = async(record) => {
-      setLoading(true);
-    try{
-      await deleteExpenseTransaction(expenseDetails,record,dispatch)
-    }catch(error){
+  const handleEdit = record => {
+    // populate add form reducer state - editing
+    setAddForm(record);
+    dispatch(setEditDetails(record));
+    setModalOpen(true);
+  };
+  const handleDelete = async record => {
+    setLoading(true);
+    try {
+      await deleteExpenseTransaction(expenseDetails, record, dispatch);
+    } catch (error) {
       notification.error({
         message: "Error",
-        description: error?error.message:"Something went wrong.",
+        description: error ? error.message : "Something went wrong.",
       });
+    } finally {
+      setLoading(false);
     }
-    finally{
-    setLoading(false);
-    }
-    // console.log(data);
 
     notification.success({
       message: "Deleted Successfully",
     });
-    };
-    
+  };
 
-    return (
-      <>
+  return (
+    <>
       <Modal
         title="Edit Expense"
         style={{
@@ -129,10 +133,24 @@ const ExpenseTable = ({loading,setLoading}) => {
           setAddForm({});
         }}
       >
-        <AddForm  reducer={expenseDetails}  formType={'Expense'} setModal={setModalOpen} addForm={addForm} setAddForm={setAddForm} AddFormErrors={AddFormErrors} setAddFormErrors={setAddFormErrors}/>
+        <AddForm
+          reducer={expenseDetails}
+          formType={"Expense"}
+          setModal={setModalOpen}
+          addForm={addForm}
+          setAddForm={setAddForm}
+          AddFormErrors={AddFormErrors}
+          setAddFormErrors={setAddFormErrors}
+        />
       </Modal>
-      <Table bordered={true} columns={columns} dataSource={expenseDetails?.expenseTransactions} style={{margin: "20px"}} loading={loading}/>
-      </>
-    )
-  };
-  export default ExpenseTable;
+      <Table
+        bordered={true}
+        columns={columns}
+        dataSource={expenseDetails?.expenseTransactions}
+        style={{ margin: "20px" }}
+        loading={loading}
+      />
+    </>
+  );
+};
+export default ExpenseTable;

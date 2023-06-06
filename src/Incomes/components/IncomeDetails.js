@@ -6,7 +6,15 @@ import moment from "moment";
 import AddForm from "../../common/components/AddForm";
 import IncomeTable from "./Income/IncomeTable";
 const IncomeDetails = () => {
-  const [addForm, setAddForm] = useState({});
+  const [addForm, setAddForm] = useState({
+    type: "Income",
+    description: "",
+    amount: "",
+    date: "",
+    category: "",
+    category_others: "",
+    remarks: "",
+  });
   const [AddFormErrors, setAddFormErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [month, setMonth] = useState(
@@ -27,7 +35,6 @@ const IncomeDetails = () => {
   const dispatch = useDispatch();
 
   const loadIncomeDetails = async monthData => {
-    console.log("handleMonth", monthData);
     setLoading(true);
     try {
       await loadIncomeTransactionsDetails("Income", monthData, dispatch);
@@ -42,9 +49,7 @@ const IncomeDetails = () => {
   };
 
   useEffect(() => {
-    // console.log("loadTransactionsDetails", incomeDetails.incomeTransactions)
     loadIncomeDetails(month);
-    // console.log("loadTransactionsDetails", incomeDetails.incomeTransactions)
 
     // eslint-disable-next-line
   }, []);
@@ -53,8 +58,6 @@ const IncomeDetails = () => {
       <div>
         <Row
           style={{
-            // padding: "20px",
-            // background: "#ececec",
             width: "100%",
             display: "flex",
             justifyContent: "space-evenly",
@@ -103,7 +106,6 @@ const IncomeDetails = () => {
         <Row
           style={{
             padding: "20px 0px",
-            // background: "#ececec",
             width: "100%",
             display: "flex",
             justifyContent: "space-between",
@@ -141,7 +143,6 @@ const IncomeDetails = () => {
             style={{
               backgroundColor: "rgba(255, 255, 255, 0.8)",
               borderRadius: "20px",
-              // margin: "6px",
               boxShadow: "0 0 10px rgba(0,0,0,0.2)",
             }}
           >

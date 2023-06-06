@@ -33,28 +33,18 @@ const AddForm = ({
   formType,
   setModal,
 }) => {
-  // set addFormData from reducer
-
-  // const userDetails = useSelector(state => state.UserReducer.userDetails);
   const commonReducer = useSelector(state => state.CommonReducer);
-  console.log("Common reducer", commonReducer.editData, commonReducer.isEdit);
+
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  // const [AddFormErrors, setAddFormErrors] = useState({});
+
   const categoryList =
     formType === "Income"
       ? INCOME_CATEGORY
       : formType === "Expense"
       ? EXPENSE_CATEGORY
       : SAVINGS_CATEGORY;
-  // const [addForm,setAddForm] = useState(commonReducer.isEdit?commonReducer.editData:{
-  //   type:formType,
-  //   description:"",
-  //   amount:"",
-  //   date:"",
-  //   category:"",
-  //   category_others:"",
-  //   remarks:"",});
+
   const isEdit = commonReducer.isEdit;
   const handleAddFormChange = e => {
     const { name, value } = e.target;
@@ -77,12 +67,10 @@ const AddForm = ({
 
   const handleSave = async () => {
     setLoading(true);
-    // setAddForm({ ...addForm, type: formType});
-    console.log(JSON.stringify(addForm));
+
     await AddFormValidate(addForm, AddFormErrors)
       .then(async () => {
         setAddFormErrors({});
-        // isEdit&&setModal(false);
         isEdit
           ? await UpdateForm(
               reducer,
@@ -125,7 +113,6 @@ const AddForm = ({
         setAddFormErrors({ ...err });
       })
       .finally(() => {
-        console.log(JSON.stringify(AddFormErrors));
         setLoading(false);
       });
   };
@@ -134,13 +121,11 @@ const AddForm = ({
     setAddFormErrors({ ...AddFormErrors, category: "" });
   };
   const handleDateChange = (date, dateString) => {
-    console.log(date, dateString);
     setAddForm({ ...addForm, date: dateString });
     setAddFormErrors({ ...AddFormErrors, date: "" });
   };
   useEffect(() => {
-    setAddForm(commonReducer.editData);
-    // loadRequestTypeList();
+    isEdit && setAddForm(commonReducer.editData);
     // eslint-disable-next-line
   }, []);
   return (

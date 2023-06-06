@@ -31,32 +31,17 @@ const AddForm = ({
   setAddFormErrors,
   setModal,
 }) => {
-  // set addFormData from reducer
-
-  // const userDetails = useSelector(state => state.UserReducer.userDetails);
   const transactionReducer = useSelector(state => state.TransactionReducer);
-  console.log(
-    "Common reducer",
-    transactionReducer.editData,
-    transactionReducer.isEdit
-  );
+
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  // const [AddFormErrors, setAddFormErrors] = useState({});
   const categoryList =
     transactionReducer?.editData?.type === "Income"
       ? INCOME_CATEGORY
       : transactionReducer?.editData?.type === "Expense"
       ? EXPENSE_CATEGORY
       : SAVINGS_CATEGORY;
-  // const [addForm,setAddForm] = useState(commonReducer.isEdit?commonReducer.editData:{
-  //   type:formType,
-  //   description:"",
-  //   amount:"",
-  //   date:"",
-  //   category:"",
-  //   category_others:"",
-  //   remarks:"",});
+
   const isEdit = transactionReducer.isEdit;
   const handleAddFormChange = e => {
     const { name, value } = e.target;
@@ -66,25 +51,17 @@ const AddForm = ({
 
   const handleReset = () => {
     setAddForm({
-      type: transactionReducer?.editData?.type,
-      description: "",
-      amount: "",
-      date: "",
-      category: "",
-      category_others: "",
-      remarks: "",
+      ...transactionReducer.editData,
     });
     setAddFormErrors({});
   };
-  // const UserReducer = useSelector(state => state.UserReducer);
+
   const handleSave = async () => {
     setLoading(true);
-    // setAddForm({ ...addForm, type: formType});
-    console.log(JSON.stringify(addForm));
+
     await AddFormValidate(addForm, AddFormErrors)
       .then(async () => {
         setAddFormErrors({});
-        // isEdit&&setModal(false);
         isEdit &&
           (await UpdateForm(
             transactionReducer,
@@ -110,27 +87,11 @@ const AddForm = ({
                 duration: 8,
               });
             }));
-        //   :
-        // await AddFormDetails(reducer,addForm,formType,dispatch)
-        //   .then(response => {
-        //     notification.success({
-        //       message: "Successfully Created "+formType,
-        //     });
-        //     handleReset();
-        //   })
-        //   .catch(err => {
-        //     notification.error({
-        //       message: "Failed to Create "+formType,
-        //       description: err,
-        //       duration: 8,
-        //     });
-        //   });
       })
       .catch(err => {
         setAddFormErrors({ ...err });
       })
       .finally(() => {
-        console.log(JSON.stringify(AddFormErrors));
         setLoading(false);
       });
   };
@@ -139,13 +100,11 @@ const AddForm = ({
     setAddFormErrors({ ...AddFormErrors, category: "" });
   };
   const handleDateChange = (date, dateString) => {
-    console.log(date, dateString);
     setAddForm({ ...addForm, date: dateString });
     setAddFormErrors({ ...AddFormErrors, date: "" });
   };
   useEffect(() => {
     setAddForm(transactionReducer.editData);
-    // loadRequestTypeList();
     // eslint-disable-next-line
   }, []);
   return (
@@ -235,7 +194,6 @@ const AddForm = ({
               name="date"
               picker="date"
               format="DD/MM/YYYY"
-              // defaultValue={moment()}
               disabledDate={current => {
                 return current && current > moment().endOf("day");
               }}
@@ -347,7 +305,8 @@ const AddForm = ({
                 </Button>
               </Popconfirm>
               <Popconfirm
-                title="Are you sure you want to Reset?"
+                // Reset to original data
+                title="This will reset all the fields to original data. Do you want to continue?"
                 onConfirm={handleReset}
                 okText="Yes"
                 cancelText="No"

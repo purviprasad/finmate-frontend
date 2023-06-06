@@ -1,20 +1,22 @@
 import { api } from "../../api";
-import { setDashboardDetails,setRecentTransactionsDetails } from "../actions/DashboardManagementAction";
+import {
+  setDashboardDetails,
+  setRecentTransactionsDetails,
+} from "../actions/DashboardManagementAction";
 
-export const getMonthDashboardDetails = (dateType, date , dispatch) => {
+export const getMonthDashboardDetails = (dateType, date, dispatch) => {
   return new Promise(async (resolve, reject) => {
     await api()
-      .post("/dashboard/viewDashboardDetails",{
+      .post("/dashboard/viewDashboardDetails", {
         dateType: dateType,
         date: date,
       })
-      .then((response) => {
-        console.log(response.data);
+      .then(response => {
         let data = response.data?.data;
         dispatch(setDashboardDetails(data));
         resolve(true);
       })
-      .catch((error) => {
+      .catch(error => {
         reject(error?.response?.data?.error?.[0].msg);
       });
   });
@@ -23,14 +25,13 @@ export const getMonthDashboardDetails = (dateType, date , dispatch) => {
 export const loadRecentTransactionsDetails = (limit, dispatch) => {
   return new Promise(async (resolve, reject) => {
     await api()
-      .get("/transaction/viewRecentTransactionDetails/"+limit)
-      .then((response) => {
-        console.log("viewRecentTransactionDetails",response.data);
+      .get("/transaction/viewRecentTransactionDetails/" + limit)
+      .then(response => {
         let data = response.data?.data;
         dispatch(setRecentTransactionsDetails(data));
         resolve(true);
       })
-      .catch((error) => {
+      .catch(error => {
         reject(error?.response?.data?.error?.[0].msg);
       });
   });

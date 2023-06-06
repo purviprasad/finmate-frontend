@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { DatePicker, Select, Space,Row, Col, Spin, Card, notification } from 'antd';
+import {
+  DatePicker,
+  Select,
+  Space,
+  Row,
+  Col,
+  Spin,
+  Card,
+  notification,
+} from "antd";
 import { resetDashboardState } from "../actions/DashboardManagementAction";
-import {getMonthDashboardDetails} from "../apis/DashboardManagementAPI";
-import { useDispatch,useSelector } from "react-redux";
+import { getMonthDashboardDetails } from "../apis/DashboardManagementAPI";
+import { useDispatch, useSelector } from "react-redux";
 import DashboardInsights from "./DashboardInsights/DashboardInsights";
 import {
   DollarCircleOutlined,
@@ -18,54 +27,44 @@ const { Option } = Select;
 const DashboardDetails = () => {
   //value is current date in YYYY-MM format
   const [value, setValue] = useState(`${moment().format("YYYY-MM")}`);
-  const [type, setType] = useState('month');
+  const [type, setType] = useState("month");
   const dispatch = useDispatch();
-  
+
   const onChange = (value, dateString) => {
-    console.log('Formatted Selected Time: ', dateString);
     setValue(dateString);
-    loadDashboardDetails(type,dateString);
+    loadDashboardDetails(type, dateString);
   };
 
-  const handleSetType = (type) => {
-    let value = '';
+  const handleSetType = type => {
+    let value = "";
     setType(type);
-    if(type === 'year'){
+    if (type === "year") {
       value = moment().format("YYYY");
-      
-    }
-    else if(type === 'quarter'){
+    } else if (type === "quarter") {
       value = moment().format("YYYY-[Q]Q");
-      
-    }
-    else{
+    } else {
       value = moment().format("YYYY-MM");
-      
     }
     setValue(value);
-    loadDashboardDetails(type,value);
-  }
+    loadDashboardDetails(type, value);
+  };
 
-  
-  const loadDashboardDetails = async (type,value) => {
+  const loadDashboardDetails = async (type, value) => {
     setLoading(true);
-    try{
-      await getMonthDashboardDetails(type, value, dispatch)
-    }catch(error){
+    try {
+      await getMonthDashboardDetails(type, value, dispatch);
+    } catch (error) {
       notification.error({
         message: "Error",
-        description: error?error.message:"Something went wrong.",
-
+        description: error ? error.message : "Something went wrong.",
       });
+    } finally {
+      setLoading(false);
     }
-    finally{
-    setLoading(false);
-    }
-  }
- 
+  };
+
   useEffect(() => {
-    loadDashboardDetails(type,value);
-    console.log("first time", value)
+    loadDashboardDetails(type, value);
     return () => {
       dispatch(resetDashboardState());
     };
@@ -76,7 +75,7 @@ const DashboardDetails = () => {
   const [loading, setLoading] = useState(false);
   const monthMap = useSelector(state => state.DashboardReducer.monthMap);
   const dashboardDetails = useSelector(state => state.DashboardReducer);
- 
+
   return (
     <>
       <Space>
@@ -85,12 +84,34 @@ const DashboardDetails = () => {
           <Option value="quarter">Quarter</Option>
           <Option value="year">Year</Option>
         </Select>
-        {type==='month'? 
-        <DatePicker picker="month" defaultValue={moment(new Date(), "YYYY-MM")} value={moment(value, "YYYY-MM")} onChange={onChange} format={"YYYY-MM"} allowClear={false}/>
-        :type==='quarter'?
-        <DatePicker picker="quarter" defaultValue={moment(new Date(), "YYYY-[Q]Q")} value={moment(value, "YYYY-[Q]Q")} onChange={onChange} format={"YYYY-[Q]Q"} allowClear={false}/>
-        :<DatePicker picker="year"  defaultValue={moment(new Date(), "YYYY")} value={moment(value, "YYYY")} onChange={onChange}  format={"YYYY"} allowClear={false}
-        />}
+        {type === "month" ? (
+          <DatePicker
+            picker="month"
+            defaultValue={moment(new Date(), "YYYY-MM")}
+            value={moment(value, "YYYY-MM")}
+            onChange={onChange}
+            format={"YYYY-MM"}
+            allowClear={false}
+          />
+        ) : type === "quarter" ? (
+          <DatePicker
+            picker="quarter"
+            defaultValue={moment(new Date(), "YYYY-[Q]Q")}
+            value={moment(value, "YYYY-[Q]Q")}
+            onChange={onChange}
+            format={"YYYY-[Q]Q"}
+            allowClear={false}
+          />
+        ) : (
+          <DatePicker
+            picker="year"
+            defaultValue={moment(new Date(), "YYYY")}
+            value={moment(value, "YYYY")}
+            onChange={onChange}
+            format={"YYYY"}
+            allowClear={false}
+          />
+        )}
       </Space>
       <Row
         style={{
@@ -237,13 +258,26 @@ const DashboardDetails = () => {
         <Col span={24}>
           <Spin tip="Loading..." spinning={loading}>
             <Card
-              title={<>
-                <div style={{fontSize:"1.4rem"}}>{`Transactions For ${type} - ${type==="month"?`${monthMap[parseInt(value?.split("-")?.[1])]}-${value?.split("-")?.[0]}`:type==="quarter"?`${value?.split("-")?.[1]}-${value?.split("-")?.[0]}`:`${value}`}`}</div></>}
+              title={
+                <>
+                  <div
+                    style={{ fontSize: "1.4rem" }}
+                  >{`Transactions For ${type} - ${
+                    type === "month"
+                      ? `${monthMap[parseInt(value?.split("-")?.[1])]}-${
+                          value?.split("-")?.[0]
+                        }`
+                      : type === "quarter"
+                      ? `${value?.split("-")?.[1]}-${value?.split("-")?.[0]}`
+                      : `${value}`
+                  }`}</div>
+                </>
+              }
               hoverable
               headStyle={{ fontSize: "16px" }}
               style={{ borderRadius: "20px" }}
             >
-              <DashboardInsights type={type} value={value}/>
+              <DashboardInsights type={type} value={value} />
             </Card>
           </Spin>
         </Col>
@@ -254,14 +288,16 @@ const DashboardDetails = () => {
           style={{
             backgroundColor: "white",
             borderRadius: "20px",
-            marginBottom: "10px"
+            marginBottom: "10px",
           }}
         >
           <Spin tip="Loading..." spinning={loading}>
             <Card
-              title={<>
-              <div style={{fontSize:"1.4rem"}}>
-                Recent Transactions</div></>}
+              title={
+                <>
+                  <div style={{ fontSize: "1.4rem" }}>Recent Transactions</div>
+                </>
+              }
               hoverable
               style={{ borderRadius: "20px" }}
             >

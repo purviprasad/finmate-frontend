@@ -31,7 +31,6 @@ const initialState = {
 const TransactionReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_TRANSACTION_DETAILS: {
-      console.log("action", action.payload);
       return {
         ...state,
         totalIncome: action.payload?.totalIncome,
@@ -49,7 +48,6 @@ const TransactionReducer = (state = initialState, action) => {
       };
     }
     case SET_EDIT_DATA:
-      console.log("action.payload", action.payload);
       return {
         ...state,
         isEdit: true,

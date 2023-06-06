@@ -2,11 +2,9 @@ import React from "react";
 import { Column } from "@ant-design/plots";
 import { useSelector } from "react-redux";
 
-const DashboardInsights = ({type, value}) => {
-  const data = useSelector(
-    (state) => state.DashboardReducer.dashboardDetails
-  );
-  const monthMap = useSelector((state) => state.DashboardReducer.monthMap);
+const DashboardInsights = ({ type, value }) => {
+  const data = useSelector(state => state.DashboardReducer.dashboardDetails);
+  const monthMap = useSelector(state => state.DashboardReducer.monthMap);
   const config = {
     data,
     xField: "date",
@@ -27,7 +25,15 @@ const DashboardInsights = ({type, value}) => {
     },
     xAxis: {
       title: {
-        text: `${type==="month"?`${monthMap[parseInt(value?.split("-")?.[1])]}-${value?.split("-")?.[0]}`:type==="quarter"?`${value?.split("-")?.[1]}-${value?.split("-")?.[0]}`:`${value}`}`,
+        text: `${
+          type === "month"
+            ? `${monthMap[parseInt(value?.split("-")?.[1])]}-${
+                value?.split("-")?.[0]
+              }`
+            : type === "quarter"
+            ? `${value?.split("-")?.[1]}-${value?.split("-")?.[0]}`
+            : `${value}`
+        }`,
         style: {
           fontSize: 16,
           shadowColor: "grey",
@@ -39,7 +45,7 @@ const DashboardInsights = ({type, value}) => {
       label: {
         autoHide: true,
         autoRotate: false,
-        formatter: (d) => {
+        formatter: d => {
           return d?.split(" ")[1];
         },
       },
@@ -59,7 +65,7 @@ const DashboardInsights = ({type, value}) => {
       label: {
         autoHide: true,
         autoRotate: false,
-        formatter: (tpay) => {
+        formatter: tpay => {
           return tpay?.split("Rs. ")[1];
         },
       },
@@ -67,15 +73,13 @@ const DashboardInsights = ({type, value}) => {
     meta: {
       date: {
         alias: "Date",
-        formatter: (date) => {
-          return (
-            `Date ${date.split("/")[0]}`
-          );
+        formatter: date => {
+          return `Date ${date.split("/")[0]}`;
         },
       },
       amount: {
         alias: "Amount",
-        formatter: (tpay) => {
+        formatter: tpay => {
           return `Rs. ${tpay}`;
         },
       },
@@ -87,7 +91,7 @@ const DashboardInsights = ({type, value}) => {
     ],
     maxColumnWidth: 20,
   };
-console.log(data);
+
   return <Column {...config} />;
 };
 

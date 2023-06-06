@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { DatePicker, Select, Space,Row, Col, notification } from 'antd';
+import { DatePicker, Select, Space, Row, Col, notification } from "antd";
 import { resetTransactionState } from "../actions/TransactionManagementAction";
-import {getTransactionDetails} from "../apis/TransactionManagementAPI";
+import { getTransactionDetails } from "../apis/TransactionManagementAPI";
 import { useDispatch, useSelector } from "react-redux";
 import TransactionsTable from "./TransactionsTable";
 import {
@@ -20,62 +20,52 @@ const TransactionsDetails = () => {
   const [value, setValue] = useState(`${moment().format("DD/MM/YYYY")}`);
   const dispatch = useDispatch();
   const onChange = (value, dateString) => {
-    console.log('Formatted Selected Time: ', dateString);
     setValue(dateString);
-    loadTransactionDetails(type,dateString);
+    loadTransactionDetails(type, dateString);
   };
-  const [type, setType] = useState('date');
+  const [type, setType] = useState("date");
   const transactionDetails = useSelector(state => state.TransactionReducer);
   const [loading, setLoading] = useState(false);
-  
-  const handleSetType = (type) => {
-    let value = '';
+
+  const handleSetType = type => {
+    let value = "";
     setType(type);
-    if(type === 'date'){
+    if (type === "date") {
       value = moment().format("DD/MM/YYYY");
-    }
-    else if(type === 'week'){
+    } else if (type === "week") {
       value = moment().format("YYYY-WW");
-    }
-    else if(type === 'year'){
+    } else if (type === "year") {
       value = moment().format("YYYY");
-      
-    }
-    else if(type === 'quarter'){
+    } else if (type === "quarter") {
       value = moment().format("YYYY-[Q]Q");
-      
-    }
-    else if(type === 'month'){
+    } else if (type === "month") {
       value = moment().format("YYYY-MM");
-      
-    }
-    else{
-      value = [moment().format("DD/MM/YYYY"),moment().format("DD/MM/YYYY")];
+    } else {
+      value = [moment().format("DD/MM/YYYY"), moment().format("DD/MM/YYYY")];
     }
     setValue(value);
-    loadTransactionDetails(type,value);
-  }
+    loadTransactionDetails(type, value);
+  };
 
-  
-  const loadTransactionDetails = async (type,value) => {
+  const loadTransactionDetails = async (type, value) => {
     setLoading(true);
-    try{
-      type==="custom"?await getTransactionDetails(type, value[0],value[1], dispatch):await getTransactionDetails(type, value,null, dispatch)
-    }catch(error){
+    try {
+      type === "custom"
+        ? await getTransactionDetails(type, value[0], value[1], dispatch)
+        : await getTransactionDetails(type, value, null, dispatch);
+    } catch (error) {
       notification.error({
         message: "Error",
 
-        description: error?error.message:"Something went wrong.",
+        description: error ? error.message : "Something went wrong.",
       });
+    } finally {
+      setLoading(false);
     }
-    finally{
-    setLoading(false);
-    }
-  }
- 
+  };
+
   useEffect(() => {
-    loadTransactionDetails(type,value);
-    console.log("first time", value)
+    loadTransactionDetails(type, value);
     return () => {
       dispatch(resetTransactionState());
     };
@@ -94,23 +84,61 @@ const TransactionsDetails = () => {
           <Option value="custom">Custom</Option>
         </Select>
         {/* <PickerWithType type={type} onChange={onChange} /> */}
-        {type==='date'?
-        <DatePicker defaultValue={moment(new Date(), "DD/MM/YYYY")} value={moment(value, "DD/MM/YYYY")} onChange={onChange} format="DD/MM/YYYY" allowClear={false}/>
-        :type==='custom'?
-        <RangePicker
-        defaultValue={[moment(new Date(), "DD/MM/YYYY"),moment(new Date(), "DD/MM/YYYY")]} value={[moment(value, "DD/MM/YYYY"),moment(value, "DD/MM/YYYY")]}
-        format="DD/MM/YYYY"
-        onChange={onChange}
-        allowClear={false}
-      />
-        :type==='week'?
-        <DatePicker picker="week"  defaultValue={moment(new Date(), "YYYY-WW")} value={moment(value, "YYYY-WW")} onChange={onChange} format="YYYY-WW" />
-        :type==='month'? 
-        <DatePicker picker="month" defaultValue={moment(new Date(), "YYYY-MM")} value={moment(value, "YYYY-MM")} onChange={onChange} format={"YYYY-MM"} allowClear={false}/>
-        :type==='quarter'?
-        <DatePicker picker="quarter" defaultValue={moment(new Date(), "YYYY-[Q]Q")} value={moment(value, "YYYY-[Q]Q")} onChange={onChange} format={"YYYY-[Q]Q"} allowClear={false}/>
-        :<DatePicker picker="year"  defaultValue={moment(new Date(), "YYYY")} value={moment(value, "YYYY")} onChange={onChange}  format={"YYYY"} allowClear={false}
-        />}
+        {type === "date" ? (
+          <DatePicker
+            defaultValue={moment(new Date(), "DD/MM/YYYY")}
+            value={moment(value, "DD/MM/YYYY")}
+            onChange={onChange}
+            format="DD/MM/YYYY"
+            allowClear={false}
+          />
+        ) : type === "custom" ? (
+          <RangePicker
+            defaultValue={[
+              moment(new Date(), "DD/MM/YYYY"),
+              moment(new Date(), "DD/MM/YYYY"),
+            ]}
+            value={[moment(value, "DD/MM/YYYY"), moment(value, "DD/MM/YYYY")]}
+            format="DD/MM/YYYY"
+            onChange={onChange}
+            allowClear={false}
+          />
+        ) : type === "week" ? (
+          <DatePicker
+            picker="week"
+            defaultValue={moment(new Date(), "YYYY-WW")}
+            value={moment(value, "YYYY-WW")}
+            onChange={onChange}
+            format="YYYY-WW"
+          />
+        ) : type === "month" ? (
+          <DatePicker
+            picker="month"
+            defaultValue={moment(new Date(), "YYYY-MM")}
+            value={moment(value, "YYYY-MM")}
+            onChange={onChange}
+            format={"YYYY-MM"}
+            allowClear={false}
+          />
+        ) : type === "quarter" ? (
+          <DatePicker
+            picker="quarter"
+            defaultValue={moment(new Date(), "YYYY-[Q]Q")}
+            value={moment(value, "YYYY-[Q]Q")}
+            onChange={onChange}
+            format={"YYYY-[Q]Q"}
+            allowClear={false}
+          />
+        ) : (
+          <DatePicker
+            picker="year"
+            defaultValue={moment(new Date(), "YYYY")}
+            value={moment(value, "YYYY")}
+            onChange={onChange}
+            format={"YYYY"}
+            allowClear={false}
+          />
+        )}
       </Space>
       <Row
         style={{
@@ -253,7 +281,7 @@ const TransactionsDetails = () => {
           </Row>
         </Col>
       </Row>
-      <TransactionsTable loading={loading} setLoading={setLoading}/>
+      <TransactionsTable loading={loading} setLoading={setLoading} />
     </>
   );
 };

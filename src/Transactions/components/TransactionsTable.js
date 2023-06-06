@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import { Space, Table,Popconfirm,notification,Modal,Tag } from 'antd';
+import { Space, Table, Popconfirm, notification, Modal, Tag } from "antd";
 import { EditFilled, DeleteFilled } from "@ant-design/icons";
 import AddForm from "./AddForm";
-import { useDispatch,useSelector } from "react-redux";
-import {deleteTransaction} from "../apis/TransactionManagementAPI";
-import {setEditDetails,resetEditState} from "../actions/TransactionManagementAction";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTransaction } from "../apis/TransactionManagementAPI";
+import {
+  setEditDetails,
+  resetEditState,
+} from "../actions/TransactionManagementAction";
 
 import "../css/EditModalOverride.css";
 
-const TransactionsTable = ({loading,setLoading}) => {
-  const [addForm,setAddForm] = useState({});
-  const [AddFormErrors,setAddFormErrors] = useState({});
+const TransactionsTable = ({ loading, setLoading }) => {
+  const [addForm, setAddForm] = useState({});
+  const [AddFormErrors, setAddFormErrors] = useState({});
   const transactionDetails = useSelector(state => state.TransactionReducer);
   const dispatch = useDispatch();
   const [modal1Open, setModalOpen] = useState(false);
@@ -18,12 +21,15 @@ const TransactionsTable = ({loading,setLoading}) => {
     {
       title: "",
       key: "t_id",
-      render: (record) => (
+      render: record => (
         <Space
           size="middle"
           style={{ display: "flex", justifyContent: "center" }}
         >
-          <EditFilled style={{ color: "#1890ff", cursor: "pointer" }} onClick={()=>handleEdit(record)}/>
+          <EditFilled
+            style={{ color: "#1890ff", cursor: "pointer" }}
+            onClick={() => handleEdit(record)}
+          />
         </Space>
       ),
     },
@@ -33,51 +39,71 @@ const TransactionsTable = ({loading,setLoading}) => {
       key: "description",
       filterSearch: true,
       filters:
-        transactionDetails?.transactionDetails.length>0&&transactionDetails?.transactionDetails.map(d=>d.description).filter((item,
-          index) => transactionDetails?.transactionDetails.map(d=>d.description).indexOf(item) === index).map(element => {
-          return { text: element, value: element };
-        }),
+        transactionDetails?.transactionDetails.length > 0 &&
+        transactionDetails?.transactionDetails
+          .map(d => d.description)
+          .filter(
+            (item, index) =>
+              transactionDetails?.transactionDetails
+                .map(d => d.description)
+                .indexOf(item) === index
+          )
+          .map(element => {
+            return { text: element, value: element };
+          }),
       onFilter: (value, record) => record.description.startsWith(value),
     },
     {
       title: "Category",
       key: "category",
-      render: (record) => (
-        <>{record.category==="Other"?record.category_others:record.category}</>
+      render: record => (
+        <>
+          {record.category === "Other"
+            ? record.category_others
+            : record.category}
+        </>
       ),
       filterSearch: true,
       filters:
-      transactionDetails?.transactionDetails.length>0&&transactionDetails?.transactionDetails.map(d=>d.category).filter((item,
-          index) => transactionDetails?.transactionDetails.map(d=>d.category).indexOf(item) === index).map(element => {
-          return { text: element, value: element };
-        }),
+        transactionDetails?.transactionDetails.length > 0 &&
+        transactionDetails?.transactionDetails
+          .map(d => d.category)
+          .filter(
+            (item, index) =>
+              transactionDetails?.transactionDetails
+                .map(d => d.category)
+                .indexOf(item) === index
+          )
+          .map(element => {
+            return { text: element, value: element };
+          }),
       onFilter: (value, record) => record.category.startsWith(value),
     },
     {
-      title: 'Type',
-      dataIndex: 'type',
-      key: 'type',
+      title: "Type",
+      dataIndex: "type",
+      key: "type",
       render: type => (
-          <>
-              {type === 'Income' ? (
-                  <Tag color="green" key={type}>
-                      {type}
-                  </Tag>
-              ) : type==='Expense' ? (
-                <Tag color="red" key={type}>
-                    {type}
-                </Tag>
-            ) : (<Tag color="blue" key={type}>
-            {type}
-        </Tag>
-    )}
-          </>
+        <>
+          {type === "Income" ? (
+            <Tag color="green" key={type}>
+              {type}
+            </Tag>
+          ) : type === "Expense" ? (
+            <Tag color="red" key={type}>
+              {type}
+            </Tag>
+          ) : (
+            <Tag color="blue" key={type}>
+              {type}
+            </Tag>
+          )}
+        </>
       ),
       filterSearch: true,
-      filters:
-        ['Income','Expense','Saving'].map(element => {
-          return { text: element, value: element };
-        }),
+      filters: ["Income", "Expense", "Saving"].map(element => {
+        return { text: element, value: element };
+      }),
       onFilter: (value, record) => record.type.startsWith(value),
     },
     {
@@ -98,7 +124,7 @@ const TransactionsTable = ({loading,setLoading}) => {
     {
       title: "",
       key: "t_id",
-      render: (record) => (
+      render: record => (
         <Space
           size="middle"
           style={{ display: "flex", justifyContent: "center" }}
@@ -119,35 +145,32 @@ const TransactionsTable = ({loading,setLoading}) => {
       ),
     },
   ];
-    const handleEdit = (record) => {
-      console.log(record);
-      // populate add form reducer state - editing
-      setAddForm(record)
-      dispatch(setEditDetails(record));
-      setModalOpen(true);
-    };
-    const handleDelete = async (record) => {
-      //update reducer state - deletion
-      setLoading(true);
-    try{
-      await deleteTransaction(transactionDetails,record,dispatch)
-    }catch(error){
+  const handleEdit = record => {
+    // populate add form reducer state - editing
+    setAddForm(record);
+    dispatch(setEditDetails(record));
+    setModalOpen(true);
+  };
+  const handleDelete = async record => {
+    //update reducer state - deletion
+    setLoading(true);
+    try {
+      await deleteTransaction(transactionDetails, record, dispatch);
+    } catch (error) {
       notification.error({
         message: "Error",
-        description: error?error.message:"Something went wrong.",
+        description: error ? error.message : "Something went wrong.",
       });
+    } finally {
+      setLoading(false);
     }
-    finally{
-    setLoading(false);
-    }
-    // console.log(data);
 
     notification.success({
       message: "Deleted Successfully",
     });
-    };
-    return (
-      <>
+  };
+  return (
+    <>
       <Modal
         title="Edit Transaction"
         style={{
@@ -155,7 +178,6 @@ const TransactionsTable = ({loading,setLoading}) => {
         }}
         open={modal1Open}
         onCancel={() => setModalOpen(false)}
-        // visible={modal1Open}
         footer={null}
         maskClosable={false}
         afterClose={() => {
@@ -163,11 +185,22 @@ const TransactionsTable = ({loading,setLoading}) => {
           setAddForm({});
         }}
       >
-        <AddForm  setModal={setModalOpen} addForm={addForm} setAddForm={setAddForm} AddFormErrors={AddFormErrors} setAddFormErrors={setAddFormErrors}/>
-        {/* <AddForm addFormData={isEditData} formType={isEditData?.type} setModal={setModalOpen}/> */}
+        <AddForm
+          setModal={setModalOpen}
+          addForm={addForm}
+          setAddForm={setAddForm}
+          AddFormErrors={AddFormErrors}
+          setAddFormErrors={setAddFormErrors}
+        />
       </Modal>
-      <Table bordered={true} columns={columns} dataSource={transactionDetails?.transactionDetails} style={{margin: "20px"}} loading={loading}/>
-      </>
-    )
-  };
-  export default TransactionsTable;
+      <Table
+        bordered={true}
+        columns={columns}
+        dataSource={transactionDetails?.transactionDetails}
+        style={{ margin: "20px" }}
+        loading={loading}
+      />
+    </>
+  );
+};
+export default TransactionsTable;

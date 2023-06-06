@@ -1,33 +1,38 @@
 import React, { useState } from "react";
-import { Space, Table,Popconfirm,notification,Modal } from 'antd';
+import { Space, Table, Popconfirm, notification, Modal } from "antd";
 import { EditFilled, DeleteFilled } from "@ant-design/icons";
-import { useDispatch,useSelector } from "react-redux";
-import {setEditDetails,resetEditState} from "../../../common/actions/CommonAction";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setEditDetails,
+  resetEditState,
+} from "../../../common/actions/CommonAction";
 import { deleteSavingTransaction } from "../../apis/SavingManagementAPI";
-
 
 import AddForm from "../../../common/components/AddForm";
 import "../../css/EditModalOverride.css";
 
-const SavingsTable = ({loading,setLoading}) => {
+const SavingsTable = ({ loading, setLoading }) => {
   const savingDetails = useSelector(state => state.SavingReducer);
 
   const [modal1Open, setModalOpen] = useState(false);
   // const [isEditData, setIsEditData] = useState({});
-  const [addForm,setAddForm] = useState({});
-  const [AddFormErrors,setAddFormErrors] = useState({});
+  const [addForm, setAddForm] = useState({});
+  const [AddFormErrors, setAddFormErrors] = useState({});
   const dispatch = useDispatch();
 
   const columns = [
     {
       title: "",
       key: "id",
-      render: (record) => (
+      render: record => (
         <Space
           size="middle"
           style={{ display: "flex", justifyContent: "center" }}
         >
-          <EditFilled style={{ color: "#1890ff", cursor: "pointer" }} onClick={()=>handleEdit(record)}/>
+          <EditFilled
+            style={{ color: "#1890ff", cursor: "pointer" }}
+            onClick={() => handleEdit(record)}
+          />
         </Space>
       ),
     },
@@ -40,8 +45,12 @@ const SavingsTable = ({loading,setLoading}) => {
       title: "Category",
       // dataIndex: "category",
       key: "category",
-      render: (record) => (
-        <>{record.category==="Other"?record.category_others:record.category}</>
+      render: record => (
+        <>
+          {record.category === "Other"
+            ? record.category_others
+            : record.category}
+        </>
       ),
     },
     {
@@ -62,7 +71,7 @@ const SavingsTable = ({loading,setLoading}) => {
     {
       title: "",
       key: "id",
-      render: (record) => (
+      render: record => (
         <Space
           size="middle"
           style={{ display: "flex", justifyContent: "center" }}
@@ -83,47 +92,33 @@ const SavingsTable = ({loading,setLoading}) => {
       ),
     },
   ];
-  // let data = [
-  //   {
-  //     id: "2",
-  //     description: "Company Salary",
-  //     category: "Salary",
-  //     category_others: "",
-  //     type: "Savings",
-  //     date: "01/06/2023",
-  //     amount: "5000",
-  //     remarks: "Company Salary",
-  //   },
-  // ];
-    const handleEdit = (record) => {
-      console.log(record);
-      // populate add form reducer state - editing
-      setAddForm(record);
-      dispatch(setEditDetails(record));
-      setModalOpen(true);
-    };
-    const handleDelete = async(record) => {
-      //update reducer state - deletion
-      setLoading(true);
-      try{
-        await deleteSavingTransaction(savingDetails,record,dispatch)
-      }catch(error){
-        notification.error({
-          message: "Error",
-          description: error?error.message:"Something went wrong.",
-        });
-      }
-      finally{
-      setLoading(false);
-      }
-      // console.log(data);
-  
-      notification.success({
-        message: "Deleted Successfully",
+
+  const handleEdit = record => {
+    // populate add form reducer state - editing
+    setAddForm(record);
+    dispatch(setEditDetails(record));
+    setModalOpen(true);
+  };
+  const handleDelete = async record => {
+    //update reducer state - deletion
+    setLoading(true);
+    try {
+      await deleteSavingTransaction(savingDetails, record, dispatch);
+    } catch (error) {
+      notification.error({
+        message: "Error",
+        description: error ? error.message : "Something went wrong.",
       });
-    };
-    return (
-      <>
+    } finally {
+      setLoading(false);
+    }
+
+    notification.success({
+      message: "Deleted Successfully",
+    });
+  };
+  return (
+    <>
       <Modal
         title="Edit Savings"
         style={{
@@ -139,10 +134,24 @@ const SavingsTable = ({loading,setLoading}) => {
           setAddForm({});
         }}
       >
-        <AddForm reducer={savingDetails}  formType={'Saving'} setModal={setModalOpen} addForm={addForm} setAddForm={setAddForm} AddFormErrors={AddFormErrors} setAddFormErrors={setAddFormErrors}/>
+        <AddForm
+          reducer={savingDetails}
+          formType={"Saving"}
+          setModal={setModalOpen}
+          addForm={addForm}
+          setAddForm={setAddForm}
+          AddFormErrors={AddFormErrors}
+          setAddFormErrors={setAddFormErrors}
+        />
       </Modal>
-      <Table bordered={true} columns={columns} dataSource={savingDetails?.savingTransactions} style={{margin: "20px"}} loading={loading}/>
-      </>
-    )
-  };
-  export default SavingsTable;
+      <Table
+        bordered={true}
+        columns={columns}
+        dataSource={savingDetails?.savingTransactions}
+        style={{ margin: "20px" }}
+        loading={loading}
+      />
+    </>
+  );
+};
+export default SavingsTable;

@@ -29,7 +29,6 @@ const initialState = {
 const DashboardReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_DASHBOARD_DETAILS: {
-      console.log("action", action.payload);
       return {
         ...state,
         totalIncome: action.payload?.totalIncome,
@@ -42,7 +41,6 @@ const DashboardReducer = (state = initialState, action) => {
       };
     }
     case SET_RECENT_TRANSACTIONS: {
-      console.log("SET_RECENT_TRANSACTIONS action", action.payload);
       return {
         ...state,
         recentTransactions: action.payload,

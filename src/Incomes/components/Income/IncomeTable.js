@@ -1,30 +1,36 @@
 import React, { useState } from "react";
-import { Space, Table, Popconfirm,notification,Modal } from "antd";
+import { Space, Table, Popconfirm, notification, Modal } from "antd";
 import { EditFilled, DeleteFilled } from "@ant-design/icons";
 import AddForm from "../../../common/components/AddForm";
 import "../../css/EditModalOverride.css";
-import { useDispatch,useSelector } from "react-redux";
-import {deleteIncomeTransaction} from "../../apis/IncomeManagementAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteIncomeTransaction } from "../../apis/IncomeManagementAPI";
 // import {setEditDetails,resetEditState} from "../../actions/IncomeManagementAction";
-import {setEditDetails,resetEditState} from "../../../common/actions/CommonAction";
+import {
+  setEditDetails,
+  resetEditState,
+} from "../../../common/actions/CommonAction";
 
-const IncomeTable = ({loading,setLoading}) => {
+const IncomeTable = ({ loading, setLoading }) => {
   const [modal1Open, setModalOpen] = useState(false);
   // const [isEditData, setIsEditData] = useState({});
-  const [addForm,setAddForm] = useState({});
-  const [AddFormErrors,setAddFormErrors] = useState({});
+  const [addForm, setAddForm] = useState({});
+  const [AddFormErrors, setAddFormErrors] = useState({});
   const dispatch = useDispatch();
 
   const columns = [
     {
       title: "",
       key: "t_id",
-      render: (record) => (
+      render: record => (
         <Space
           size="middle"
           style={{ display: "flex", justifyContent: "center" }}
         >
-          <EditFilled style={{ color: "#1890ff", cursor: "pointer" }} onClick={()=>handleEdit(record)}/>
+          <EditFilled
+            style={{ color: "#1890ff", cursor: "pointer" }}
+            onClick={() => handleEdit(record)}
+          />
         </Space>
       ),
     },
@@ -36,8 +42,12 @@ const IncomeTable = ({loading,setLoading}) => {
     {
       title: "Category",
       key: "category",
-      render: (record) => (
-        <>{record.category==="Other"?record.category_others:record.category}</>
+      render: record => (
+        <>
+          {record.category === "Other"
+            ? record.category_others
+            : record.category}
+        </>
       ),
     },
     {
@@ -58,7 +68,7 @@ const IncomeTable = ({loading,setLoading}) => {
     {
       title: "",
       key: "t_id",
-      render: (record) => (
+      render: record => (
         <Space
           size="middle"
           style={{ display: "flex", justifyContent: "center" }}
@@ -79,47 +89,40 @@ const IncomeTable = ({loading,setLoading}) => {
       ),
     },
   ];
-  const handleEdit = (record) => {
-    console.log(record);
+  const handleEdit = record => {
     // populate add form reducer state - editing
-    // setIsEditData(record);
-    setAddForm(record)
+    setAddForm(record);
     dispatch(setEditDetails(record));
     setModalOpen(true);
   };
-  const handleDelete = async (record) => {
+  const handleDelete = async record => {
     setLoading(true);
-    try{
-      await deleteIncomeTransaction(incomeDetails,record,dispatch)
-    }catch(error){
+    try {
+      await deleteIncomeTransaction(incomeDetails, record, dispatch);
+    } catch (error) {
       notification.error({
         message: "Error",
-        description: error?error.message:"Something went wrong.",
+        description: error ? error.message : "Something went wrong.",
       });
+    } finally {
+      setLoading(false);
     }
-    finally{
-    setLoading(false);
-    }
-    // console.log(data);
 
     notification.success({
       message: "Deleted Successfully",
     });
   };
   const incomeDetails = useSelector(state => state.IncomeReducer);
-    
-
 
   return (
     <>
-  <Modal
+      <Modal
         title="Edit Income"
         style={{
           top: 20,
         }}
         open={modal1Open}
         onCancel={() => setModalOpen(false)}
-        // visible={modal1Open}
         footer={null}
         maskClosable={false}
         afterClose={() => {
@@ -127,15 +130,24 @@ const IncomeTable = ({loading,setLoading}) => {
           setAddForm({});
         }}
       >
-        <AddForm reducer={incomeDetails}  formType={'Income'} setModal={setModalOpen} addForm={addForm} setAddForm={setAddForm} AddFormErrors={AddFormErrors} setAddFormErrors={setAddFormErrors}/>
+        <AddForm
+          reducer={incomeDetails}
+          formType={"Income"}
+          setModal={setModalOpen}
+          addForm={addForm}
+          setAddForm={setAddForm}
+          AddFormErrors={AddFormErrors}
+          setAddFormErrors={setAddFormErrors}
+        />
       </Modal>
       <Table
-    loading={loading}
-    bordered={true}
-    columns={columns}
-    dataSource={incomeDetails?.incomeTransactions}
-    style={{ margin: "20px" }}
-    />
-  </>);
+        loading={loading}
+        bordered={true}
+        columns={columns}
+        dataSource={incomeDetails?.incomeTransactions}
+        style={{ margin: "20px" }}
+      />
+    </>
+  );
 };
 export default IncomeTable;
