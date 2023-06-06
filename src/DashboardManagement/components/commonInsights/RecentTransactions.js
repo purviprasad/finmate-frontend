@@ -81,6 +81,7 @@ const RecentTransactions = () => {
       columns={columns}
       dataSource={dashboardDetails.recentTransactions}
       loading={recentloading}
+      rowKey={record => record.t_id}
     />
   );
 };

@@ -4,7 +4,6 @@ import Login from "./Login";
 import Register from "./Register";
 import { Row, Col, Card } from "antd";
 import "../../css/AuthOverride.css";
-// const { TabPane } = Tabs;
 
 const AuthRoot = () => {
   const [activePage, setActivePage] = useState("login");

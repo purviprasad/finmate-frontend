@@ -43,7 +43,6 @@ const SavingsTable = ({ loading, setLoading }) => {
     },
     {
       title: "Category",
-      // dataIndex: "category",
       key: "category",
       render: record => (
         <>
@@ -126,7 +125,6 @@ const SavingsTable = ({ loading, setLoading }) => {
         }}
         open={modal1Open}
         onCancel={() => setModalOpen(false)}
-        // visible={modal1Open}
         footer={null}
         maskClosable={false}
         afterClose={() => {
@@ -150,6 +148,7 @@ const SavingsTable = ({ loading, setLoading }) => {
         dataSource={savingDetails?.savingTransactions}
         style={{ margin: "20px" }}
         loading={loading}
+        rowKey={record => record.t_id}
       />
     </>
   );

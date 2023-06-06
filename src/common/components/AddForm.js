@@ -213,7 +213,6 @@ const AddForm = ({
               name="date"
               picker="date"
               format="DD/MM/YYYY"
-              // defaultValue={moment()}
               disabledDate={current => {
                 return current && current > moment().endOf("day");
               }}

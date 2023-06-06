@@ -199,6 +199,7 @@ const TransactionsTable = ({ loading, setLoading }) => {
         dataSource={transactionDetails?.transactionDetails}
         style={{ margin: "20px" }}
         loading={loading}
+        rowKey={record => record.t_id}
       />
     </>
   );

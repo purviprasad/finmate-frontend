@@ -10,24 +10,19 @@ import {
 } from "@ant-design/icons";
 import RecentTransactions from "../commonInsights/RecentTransactions";
 import "../../css/EditModalOverride.css";
-const MonthlyInsights = ({type, value}) => {
+const MonthlyInsights = ({ type, value }) => {
   const [month, setMonth] = useState(
     `${new Date().getFullYear()}-${new Date().getMonth() + 1}`
   );
-  // eslint-disable-next-line
+
   const [loading, setLoading] = useState(false);
   const monthMap = useSelector(state => state.DashboardReducer.monthMap);
-  useEffect(() => {
-    // loadDashboardDetails(month);
-    // eslint-disable-next-line
-  }, []);
+
   return (
     <>
- 
       <Row
         style={{
           padding: "20px",
-          // background: "#ececec",
           width: "100%",
           display: "flex",
           justifyContent: "space-evenly",
@@ -169,15 +164,20 @@ const MonthlyInsights = ({type, value}) => {
         <Col span={24}>
           <Spin tip="Loading..." spinning={loading}>
             <Card
-              title={<>
-                <div style={{fontSize:"1.4rem"}}>{`Transactions For Month - ${
-                monthMap[parseInt(month?.split("-")?.[1])]
-              }-${month?.split("-")?.[0]}`}</div></>}
+              title={
+                <>
+                  <div
+                    style={{ fontSize: "1.4rem" }}
+                  >{`Transactions For Month - ${
+                    monthMap[parseInt(month?.split("-")?.[1])]
+                  }-${month?.split("-")?.[0]}`}</div>
+                </>
+              }
               hoverable
               headStyle={{ fontSize: "16px" }}
               style={{ borderRadius: "20px" }}
             >
-              <DashboardInsights type={type} value={value}/>
+              <DashboardInsights type={type} value={value} />
             </Card>
           </Spin>
         </Col>
@@ -188,14 +188,16 @@ const MonthlyInsights = ({type, value}) => {
           style={{
             backgroundColor: "white",
             borderRadius: "20px",
-            marginBottom: "10px"
+            marginBottom: "10px",
           }}
         >
           <Spin tip="Loading..." spinning={loading}>
             <Card
-              title={<>
-              <div style={{fontSize:"1.4rem"}}>
-                Recent Transactions</div></>}
+              title={
+                <>
+                  <div style={{ fontSize: "1.4rem" }}>Recent Transactions</div>
+                </>
+              }
               hoverable
               style={{ borderRadius: "20px" }}
             >

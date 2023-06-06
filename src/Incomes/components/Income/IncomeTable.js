@@ -5,7 +5,7 @@ import AddForm from "../../../common/components/AddForm";
 import "../../css/EditModalOverride.css";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteIncomeTransaction } from "../../apis/IncomeManagementAPI";
-// import {setEditDetails,resetEditState} from "../../actions/IncomeManagementAction";
+
 import {
   setEditDetails,
   resetEditState,
@@ -13,7 +13,6 @@ import {
 
 const IncomeTable = ({ loading, setLoading }) => {
   const [modal1Open, setModalOpen] = useState(false);
-  // const [isEditData, setIsEditData] = useState({});
   const [addForm, setAddForm] = useState({});
   const [AddFormErrors, setAddFormErrors] = useState({});
   const dispatch = useDispatch();
@@ -146,6 +145,7 @@ const IncomeTable = ({ loading, setLoading }) => {
         columns={columns}
         dataSource={incomeDetails?.incomeTransactions}
         style={{ margin: "20px" }}
+        rowKey={record => record.t_id}
       />
     </>
   );

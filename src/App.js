@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ProtectRoute from "./UserManagement/components/auth/ProtectRoute";
 import { setIsAuth } from "./UserManagement/actions/AuthManagementAction";
 import { getUserDetails } from "./UserManagement/apis/UserManagementAPI";
-// import useRoutes from "./routes";
+
 const { Sider, Header, Content } = Layout;
 const ProfileRoot = lazy(() =>
   import("./UserManagement/components/Profile/ProfileRoot")
@@ -23,7 +23,6 @@ const App = () => {
   // const location = useLocation();
   const history = useHistory();
   const isAuth = useSelector(state => state.AuthReducer.isAuth);
-  // const userDetails = useSelector(state => state.UserReducer.userDetails);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -53,7 +52,7 @@ const App = () => {
   }, [isAuth, localStorage.getItem("token"), localStorage.getItem("isAuth")]);
 
   const [collapsed, setCollapsed] = useState(false);
-  // const routePaths = useRoutes().routes?.map(route => route.path);
+
   const DashboardManagementRoot = lazy(() =>
     import("./DashboardManagement/components/DashboardManagementRoot")
   );
@@ -69,13 +68,25 @@ const App = () => {
   const TransactionsManagementRoot = lazy(() =>
     import("./Transactions/components/TransactionsManagementRoot")
   );
-  
+
   return (
     <div className="App">
-      <Layout >
-          {isAuth && (<Sider trigger={null} collapsible collapsed={collapsed} theme="light" style={{borderRadius: "20px", margin: "10px", boxShadow: "0 0 10px rgba(0,0,0,0.2)",}} >
+      <Layout>
+        {isAuth && (
+          <Sider
+            trigger={null}
+            collapsible
+            collapsed={collapsed}
+            theme="light"
+            style={{
+              borderRadius: "20px",
+              margin: "10px",
+              boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+            }}
+          >
             <Navbar />
-          </Sider>)}
+          </Sider>
+        )}
         <Suspense fallback={"Loading..."}>
           <Switch>
             <>
@@ -85,28 +96,50 @@ const App = () => {
                     <>
                       {collapsed ? (
                         <MenuUnfoldOutlined
-                          style={{paddingLeft: "20px"}}
+                          style={{ paddingLeft: "20px" }}
                           onClick={() => setCollapsed(prev => !prev)}
                         />
                       ) : (
                         <MenuFoldOutlined
-                        style={{paddingLeft: "20px"}}
+                          style={{ paddingLeft: "20px" }}
                           onClick={() => setCollapsed(prev => !prev)}
                         />
                       )}
                       <ProfileRoot />
                     </>
                   </Header>
-                  )}
-                  <Route exact path="/auth" component={AuthRoot} />
-                  {isAuth&&<Content className="skr-content">
-                    <ProtectRoute exact path="/" component={DashboardManagementRoot} />
-                    <ProtectRoute exact path="/incomes" component={IncomeManagementRoot} />
-                    <ProtectRoute exact path="/expenses" component={ExpenseManagementRoot} />
-                    <ProtectRoute exact path="/savings" component={SavingsManagementRoot} />
-                    <ProtectRoute exact path="/transactions" component={TransactionsManagementRoot} />
+                )}
+                <Route exact path="/auth" component={AuthRoot} />
+                {isAuth && (
+                  <Content className="skr-content">
+                    <ProtectRoute
+                      exact
+                      path="/"
+                      component={DashboardManagementRoot}
+                    />
+                    <ProtectRoute
+                      exact
+                      path="/incomes"
+                      component={IncomeManagementRoot}
+                    />
+                    <ProtectRoute
+                      exact
+                      path="/expenses"
+                      component={ExpenseManagementRoot}
+                    />
+                    <ProtectRoute
+                      exact
+                      path="/savings"
+                      component={SavingsManagementRoot}
+                    />
+                    <ProtectRoute
+                      exact
+                      path="/transactions"
+                      component={TransactionsManagementRoot}
+                    />
                     {/* <Route path="*" component={PageNotFound} /> */}
-                  </Content>}
+                  </Content>
+                )}
               </Layout>
             </>
           </Switch>

@@ -74,12 +74,11 @@ export const UpdateForm = (reducer, editData, record1, formType, dispatch) => {
         let totalSavings = reducer.totalSavings;
         let totalBalance = reducer.totalBalance;
         if (record1.type === "Income") {
-          // let reducer = useSelector(state => state.IncomeReducer);
           totalIncome =
             parseInt(reducer.totalIncome) -
             parseInt(editData.amount) +
             parseInt(record1.amount);
-          // totalIncome = reducer.totalIncome + parseInt(record1.amount);
+
           totalBalance =
             parseInt(reducer.totalBalance) -
             parseInt(editData.amount) +

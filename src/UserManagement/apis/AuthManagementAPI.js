@@ -52,17 +52,3 @@ export const logout = dispatch => {
       });
   });
 };
-
-// export const updateUserPassword = (user, dispatch) => {
-//   return new Promise(async (resolve, reject) => {
-//     await api()
-//       .post(`/auth/updatePassword`, { ...user })
-//       .then(response => {
-//         resolve(response.data);
-//       })
-//       .catch(error => {
-//         dispatch(setAuthError(error?.response?.data?.error?.[0].msg));
-//         reject(error?.response?.data?.error?.[0].msg);
-//       });
-//   });
-// };

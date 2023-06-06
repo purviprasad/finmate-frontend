@@ -13,7 +13,7 @@ import "../../css/EditModalOverride.css";
 const ExpenseTable = ({ loading, setLoading }) => {
   const expenseDetails = useSelector(state => state.ExpenseReducer);
   const [modal1Open, setModalOpen] = useState(false);
-  // const [isEditData, setIsEditData] = useState({});
+
   const [addForm, setAddForm] = useState({});
   const [AddFormErrors, setAddFormErrors] = useState({});
   const dispatch = useDispatch();
@@ -41,7 +41,6 @@ const ExpenseTable = ({ loading, setLoading }) => {
     },
     {
       title: "Category",
-      // dataIndex: "category",
       key: "category",
       render: record => (
         <>
@@ -65,7 +64,6 @@ const ExpenseTable = ({ loading, setLoading }) => {
       title: "Remarks",
       key: "remarks",
       dataIndex: "remarks",
-      // render: (record) => record?.remarks ? record?.remarks : null
     },
     {
       title: "",
@@ -125,7 +123,6 @@ const ExpenseTable = ({ loading, setLoading }) => {
         }}
         open={modal1Open}
         onCancel={() => setModalOpen(false)}
-        // visible={modal1Open}
         footer={null}
         maskClosable={false}
         afterClose={() => {
@@ -149,6 +146,7 @@ const ExpenseTable = ({ loading, setLoading }) => {
         dataSource={expenseDetails?.expenseTransactions}
         style={{ margin: "20px" }}
         loading={loading}
+        rowKey={record => record.t_id}
       />
     </>
   );

@@ -116,7 +116,6 @@ const DashboardDetails = () => {
       <Row
         style={{
           padding: "20px",
-          // background: "#ececec",
           width: "100%",
           display: "flex",
           justifyContent: "space-evenly",
