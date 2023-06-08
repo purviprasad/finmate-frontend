@@ -5,6 +5,7 @@ import moment from "moment";
 import AddForm from "../../common/components/AddForm";
 import ExpenseTable from "./Expense/ExpenseTable";
 import { loadExpenseTransactionsDetails } from "../apis/ExpenseManagementAPI";
+import ExpenseDetailsCss from "../css/ExpenseDetails.module.css";
 
 const ExpenseDetails = () => {
   const [addForm, setAddForm] = useState({
@@ -138,6 +139,7 @@ const ExpenseDetails = () => {
             sm={{ span: 24 }}
             md={{ span: 15 }}
             lg={{ span: 15 }}
+            className={ExpenseDetailsCss.expenseTableContainer}
             style={{
               backgroundColor: "rgba(255, 255, 255, 0.8)",
               borderRadius: "20px",

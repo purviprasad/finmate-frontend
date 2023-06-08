@@ -5,6 +5,8 @@ import moment from "moment";
 import AddForm from "../../common/components/AddForm";
 import SavingsTable from "./Savings/SavingsTable";
 import { loadSavingTransactionsDetails } from "../apis/SavingManagementAPI";
+import SavingsDtailsCss from "../css/SavingsDetails.module.css";
+
 const SavingsDetails = () => {
   const [addForm, setAddForm] = useState({
     type: "Saving",
@@ -139,6 +141,7 @@ const SavingsDetails = () => {
             sm={{ span: 24 }}
             md={{ span: 15 }}
             lg={{ span: 15 }}
+            className={SavingsDtailsCss.savingsTableContainer}
             style={{
               backgroundColor: "rgba(255, 255, 255, 0.8)",
               borderRadius: "20px",

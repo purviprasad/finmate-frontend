@@ -5,6 +5,8 @@ import { DatePicker, notification, Row, Col } from "antd";
 import moment from "moment";
 import AddForm from "../../common/components/AddForm";
 import IncomeTable from "./Income/IncomeTable";
+import IncomeDtailsCss from "../css/IncomeDetails.module.css";
+
 const IncomeDetails = () => {
   const [addForm, setAddForm] = useState({
     type: "Income",
@@ -140,6 +142,7 @@ const IncomeDetails = () => {
             sm={{ span: 24 }}
             md={{ span: 15 }}
             lg={{ span: 15 }}
+            className={IncomeDtailsCss.incomeTableContainer}
             style={{
               backgroundColor: "rgba(255, 255, 255, 0.8)",
               borderRadius: "20px",
