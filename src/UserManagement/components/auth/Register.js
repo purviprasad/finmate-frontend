@@ -143,7 +143,7 @@ const Register = ({ setActivePage }) => {
           placeholder="Type Name"
           name="name"
           onChange={handleChange}
-          prefix={<IdcardOutlined style={{ paddingRight: "5px" }} />}
+          prefix={<IdcardOutlined className={AuthCss.inputFormIcons} />}
           onPressEnter={handleSubmit}
         />
         <span>Username</span>
@@ -153,7 +153,7 @@ const Register = ({ setActivePage }) => {
           placeholder="Type Username"
           name="username"
           onChange={handleChange}
-          prefix={<UserOutlined style={{ paddingRight: "5px" }} />}
+          prefix={<UserOutlined className={AuthCss.inputFormIcons} />}
           onPressEnter={handleSubmit}
         />
         <span>Email</span>
@@ -164,7 +164,7 @@ const Register = ({ setActivePage }) => {
           name="email"
           type="email"
           onChange={handleChange}
-          prefix={<MailOutlined style={{ paddingRight: "5px" }} />}
+          prefix={<MailOutlined className={AuthCss.inputFormIcons} />}
           onPressEnter={handleSubmit}
         />
         <span>Password</span>
@@ -174,7 +174,7 @@ const Register = ({ setActivePage }) => {
           placeholder="Password"
           name="password"
           onChange={handleChange}
-          prefix={<LockOutlined style={{ paddingRight: "5px" }} />}
+          prefix={<LockOutlined className={AuthCss.inputFormIcons} />}
           onPressEnter={handleSubmit}
         />
         <span>Confirm Password</span>
@@ -184,10 +184,10 @@ const Register = ({ setActivePage }) => {
           placeholder="Confirm password"
           name="confirmpassword"
           onChange={handleChange}
-          prefix={<LockOutlined style={{ paddingRight: "5px" }} />}
+          prefix={<LockOutlined className={AuthCss.inputFormIcons} />}
           onPressEnter={handleSubmit}
         />
-        <div style={{ textAlign: "center", marginTop: "10px" }}>
+        <div className={AuthCss.centerTextTopMargin}>
           <Button
             type="default"
             icon={<LoginOutlined />}
@@ -199,7 +199,7 @@ const Register = ({ setActivePage }) => {
             {isLoading ? <>Registering ...</> : <>Register</>}
           </Button>
         </div>
-        <div style={{ textAlign: "center", marginTop: "10px" }}>
+        <div className={AuthCss.centerTextTopMargin}>
           Already have an account?{" "}
           <Button type="link" onClick={onPageChange}>
             Login

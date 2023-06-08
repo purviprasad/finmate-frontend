@@ -1,5 +1,4 @@
 .container {
-  height: 100vh;
   width: 100%;
   background: rgb(248, 192, 200); 
 }
@@ -51,4 +50,42 @@
 
 .requestForm {
   border-radius: 20px;
+}
+
+.authFormContainer{
+  border-radius: 20px;
+background-color: rgba(255, 255, 255, 0.8);
+backdrop-filter: blur(10px);
+box-shadow: 0 0 10px rgba(0,0,0,0.2);
+width: 100%;
+}
+
+.loginScreenImage{
+  background-color: rgba(255, 255, 255, 0.8);
+border-radius: 20px;
+width: 100%;
+height: 97vh;
+box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.authRowContainer{
+  display: flex;
+justify-content: space-between;
+flex-wrap: wrap;
+}
+
+.authColContainer{
+  display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+}
+
+.inputFormIcons{
+  padding-right: 5px;
+}
+
+.centerTextTopMargin{
+  margin-top: 10px;
+  text-align: center;
 }

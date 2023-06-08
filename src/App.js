@@ -96,12 +96,12 @@ const App = () => {
                     <>
                       {collapsed ? (
                         <MenuUnfoldOutlined
-                          style={{ paddingLeft: "20px" }}
+                          className="menu-icon"
                           onClick={() => setCollapsed(prev => !prev)}
                         />
                       ) : (
                         <MenuFoldOutlined
-                          style={{ paddingLeft: "20px" }}
+                          className="menu-icon"
                           onClick={() => setCollapsed(prev => !prev)}
                         />
                       )}

@@ -13,15 +13,10 @@ import { resetDashboardState } from "../actions/DashboardManagementAction";
 import { getMonthDashboardDetails } from "../apis/DashboardManagementAPI";
 import { useDispatch, useSelector } from "react-redux";
 import DashboardInsights from "./DashboardInsights/DashboardInsights";
-import {
-  DollarCircleOutlined,
-  RiseOutlined,
-  FallOutlined,
-  BankOutlined,
-} from "@ant-design/icons";
 import RecentTransactionsTable from "./commonInsights/RecentTransactionsTable";
 import "../css/EditModalOverride.css";
 import moment from "moment";
+import TotalCounterCards from "../../common/components/TotalCounterCards";
 
 const { Option } = Select;
 const DashboardDetails = () => {
@@ -113,146 +108,7 @@ const DashboardDetails = () => {
           />
         )}
       </Space>
-      <Row
-        style={{
-          padding: "20px",
-          width: "100%",
-          display: "flex",
-          justifyContent: "space-evenly",
-          flexWrap: "wrap",
-        }}
-      >
-        <Col
-          xs={{ span: 24 }}
-          sm={{ span: 24 }}
-          md={{ span: 11 }}
-          lg={{ span: 5 }}
-          style={{
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
-            borderRadius: "20px",
-            padding: "10px",
-            margin: "6px",
-            backdropFilter: "blur(10px)",
-            boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-          }}
-        >
-          <Row style={{ textAlign: "center", padding: "50px 0" }}>
-            <Col span={10}>
-              <DollarCircleOutlined
-                style={{
-                  color: "#bcad0f",
-                  backgroundColor: "rgb(233 254 84 / 79%)",
-                  borderRadius: "50%",
-                  fontSize: "3rem",
-                  padding: "10px",
-                }}
-              />
-            </Col>
-            <Col span={12}>
-              <span style={{ fontSize: "1.2rem" }}>My Balance</span> <br />{" "}
-              <span style={{ fontSize: "1.4rem", fontWeight: 500 }}>
-                Rs. {dashboardDetails?.totalBalance?.toFixed(2)}
-              </span>
-            </Col>
-          </Row>
-        </Col>
-        <Col
-          xs={{ span: 24 }}
-          sm={{ span: 24 }}
-          md={{ span: 11 }}
-          lg={{ span: 5 }}
-          style={{
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
-            borderRadius: "20px",
-            margin: "6px",
-            boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-          }}
-        >
-          <Row style={{ textAlign: "center", padding: "50px 0" }}>
-            <Col span={10}>
-              <RiseOutlined
-                style={{
-                  color: "#55d715",
-                  backgroundColor: "#45ff404f",
-                  borderRadius: "50%",
-                  fontSize: "3rem",
-                  padding: "10px",
-                }}
-              />
-            </Col>
-            <Col span={12}>
-              <span style={{ fontSize: "1.2rem" }}>Income</span> <br />{" "}
-              <span style={{ fontSize: "1.4rem", fontWeight: 500 }}>
-                Rs. {dashboardDetails?.totalIncome?.toFixed(2)}
-              </span>
-            </Col>
-          </Row>
-        </Col>
-        <Col
-          xs={{ span: 24 }}
-          sm={{ span: 24 }}
-          md={{ span: 11 }}
-          lg={{ span: 5 }}
-          style={{
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
-            borderRadius: "20px",
-            margin: "6px",
-            boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-          }}
-        >
-          <Row style={{ textAlign: "center", padding: "50px 0" }}>
-            <Col span={10}>
-              <FallOutlined
-                style={{
-                  color: "rgb(237 36 49)",
-                  backgroundColor: "rgb(254 84 97 / 49%)",
-                  borderRadius: "50%",
-                  fontSize: "3rem",
-                  padding: "10px",
-                }}
-              />
-            </Col>
-            <Col span={12}>
-              <span style={{ fontSize: "1.2rem" }}>Expenses</span> <br />{" "}
-              <span style={{ fontSize: "1.4rem", fontWeight: 500 }}>
-                Rs. {dashboardDetails?.totalExpense?.toFixed(2)}
-              </span>
-            </Col>
-          </Row>
-        </Col>
-        <Col
-          xs={{ span: 24 }}
-          sm={{ span: 24 }}
-          md={{ span: 11 }}
-          lg={{ span: 5 }}
-          style={{
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
-            borderRadius: "20px",
-            margin: "6px",
-            boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-          }}
-        >
-          <Row style={{ textAlign: "center", padding: "50px 0" }}>
-            <Col span={10}>
-              <BankOutlined
-                style={{
-                  color: "rgb(15 185 188)",
-                  backgroundColor: "rgb(84 253 254 / 46%)",
-                  borderRadius: "50%",
-                  fontSize: "3rem",
-                  padding: "10px",
-                }}
-              />
-            </Col>
-            <Col span={12}>
-              <span style={{ fontSize: "1.2rem" }}>Savings</span> <br />{" "}
-              <span style={{ fontSize: "1.4rem", fontWeight: 500 }}>
-                Rs. {dashboardDetails?.totalSavings?.toFixed(2)}
-              </span>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+      <TotalCounterCards counterDetails={dashboardDetails} />
       <Row>
         <Col span={24}>
           <Spin tip="Loading..." spinning={loading}>

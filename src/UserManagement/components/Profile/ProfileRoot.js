@@ -1,6 +1,6 @@
 import React from "react";
 import { Avatar, Menu, Dropdown } from "antd";
-import {  LogoutOutlined } from "@ant-design/icons";
+import { LogoutOutlined } from "@ant-design/icons";
 import { logout } from "../../apis/AuthManagementAPI";
 import { useDispatch, useSelector } from "react-redux";
 

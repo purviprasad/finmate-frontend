@@ -87,7 +87,7 @@ const Login = ({ setActivePage }) => {
           placeholder="Type username/email..."
           name="user"
           onChange={handleChange}
-          prefix={<UserOutlined style={{ paddingRight: "5px" }} />}
+          prefix={<UserOutlined className={AuthCss.inputFormIcons} />}
           onPressEnter={handleSubmit}
         />
         <span>Password</span>
@@ -97,10 +97,10 @@ const Login = ({ setActivePage }) => {
           placeholder="Type password..."
           name="password"
           onChange={handleChange}
-          prefix={<LockOutlined style={{ paddingRight: "5px" }} />}
+          prefix={<LockOutlined className={AuthCss.inputFormIcons} />}
           onPressEnter={handleSubmit}
         />
-        <div style={{ textAlign: "center", marginTop: "10px" }}>
+        <div className={AuthCss.centerTextTopMargin}>
           <Button
             type="default"
             icon={<LoginOutlined />}
@@ -112,7 +112,7 @@ const Login = ({ setActivePage }) => {
             {isLoading ? <>Logging In ...</> : <>Login</>}
           </Button>
         </div>
-        <div style={{ textAlign: "center", marginTop: "10px" }}>
+        <div className={AuthCss.centerTextTopMargin}>
           <span>
             Don't have an account?{" "}
             <Button type="link" onClick={onPageChange}>

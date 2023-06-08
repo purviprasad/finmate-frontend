@@ -9,25 +9,14 @@ const AuthRoot = () => {
   const [activePage, setActivePage] = useState("login");
   return (
     <div className={AuthCss.container}>
-      <Row
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-        }}
-      >
-        {/* Sign In or Log in */}
+      <Row className={AuthCss.authRowContainer}>
+        {/* Log in or Register */}
         <Col
+          className={AuthCss.authColContainer}
           xs={{ span: 24 }}
           sm={{ span: 24 }}
           md={{ span: 8 }}
           lg={{ span: 8 }}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
         >
           <Row>
             <Col xs={{ span: 24 }} lg={{ span: 24 }}>
@@ -42,14 +31,8 @@ const AuthRoot = () => {
             <Col xs={{ span: 24 }} lg={{ span: 24 }}>
               <div className={AuthCss.requestForm}>
                 <Card
+                  className={AuthCss.authFormContainer}
                   bordered={false}
-                  style={{
-                    borderRadius: "20px",
-                    backgroundColor: "rgba(255, 255, 255, 0.8)",
-                    backdropFilter: "blur(10px)",
-                    boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-                    width: "100%",
-                  }}
                   title={
                     activePage === "login" ? (
                       <div style={{ textAlign: "center" }}>Sign In</div>
@@ -79,15 +62,9 @@ const AuthRoot = () => {
           style={{ padding: "10px" }}
         >
           <img
+            className={AuthCss.loginScreenImage}
             src={process.env.PUBLIC_URL + "/images/loginScreenImage.png"}
-            alt="logo"
-            style={{
-              backgroundColor: "rgba(255, 255, 255, 0.8)",
-              borderRadius: "20px",
-              width: "100%",
-              height: "97vh",
-              boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-            }}
+            alt="loginScreenImage"
           />
         </Col>
       </Row>

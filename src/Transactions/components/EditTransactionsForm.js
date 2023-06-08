@@ -10,8 +10,8 @@ import {
   DatePicker,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import AddFormCss from "../css/AddForm.module.css";
-import "../css/AddFormOverride.css";
+import EditTransactionsFormCss from "../css/EditTransactionsForm.module.css";
+import "../css/EditTransactionsFormOverride.css";
 import TextArea from "antd/lib/input/TextArea";
 import { CloseSquareFilled, CheckSquareFilled } from "@ant-design/icons";
 import { UpdateForm } from "../apis/TransactionManagementAPI";
@@ -24,7 +24,7 @@ import {
 } from "../../common/utils/Constants";
 import { resetEditState } from "../actions/TransactionManagementAction";
 
-const AddForm = ({
+const EditTransactionsForm = ({
   addForm,
   setAddForm,
   AddFormErrors,
@@ -109,7 +109,7 @@ const AddForm = ({
   }, []);
   return (
     <>
-      <div className={AddFormCss.requestForm}>
+      <div className={EditTransactionsFormCss.editForm}>
         <Card
           title={
             !isEdit && (
@@ -119,24 +119,15 @@ const AddForm = ({
             )
           }
           bordered={false}
-          style={{
-            borderRadius: "20px",
-            backgroundColor: "transparent",
-            width: "100%",
-          }}
+          className={EditTransactionsFormCss.addFormCard}
         >
           <>
-            <div className={AddFormCss.formLabel}>
-              Description: <span style={{ color: "red" }}>*</span>
+            <div className={EditTransactionsFormCss.formLabel}>
+              Description:{" "}
+              <span className={EditTransactionsFormCss.mandatory}>*</span>
             </div>
             <Input
-              style={{
-                width: "100%",
-                maxHeight: 100,
-                overflow: "auto",
-                marginTop: "10px",
-                borderRadius: "20px",
-              }}
+              className={EditTransactionsFormCss.addFormInput}
               placeholder="Enter Description"
               name="description"
               onChange={handleAddFormChange}
@@ -144,24 +135,18 @@ const AddForm = ({
             />
             {AddFormErrors?.description && (
               <Alert
-                style={{ marginTop: "2px", borderRadius: "10px" }}
-                className={`${AddFormCss.errorRequestTypeAlert}`}
+                className={`${EditTransactionsFormCss.errorAlert}`}
                 message={AddFormErrors.description}
                 type="error"
                 showIcon
               />
             )}
-            <div className={AddFormCss.formLabel}>
-              Amount: <span style={{ color: "red" }}>*</span>
+            <div className={EditTransactionsFormCss.formLabel}>
+              Amount:{" "}
+              <span className={EditTransactionsFormCss.mandatory}>*</span>
             </div>
             <Input
-              style={{
-                width: "100%",
-                maxHeight: 100,
-                overflow: "auto",
-                marginTop: "10px",
-                borderRadius: "20px",
-              }}
+              className={EditTransactionsFormCss.addFormInput}
               placeholder="Enter Amount(in Rs.)"
               name="amount"
               type="number"
@@ -170,24 +155,17 @@ const AddForm = ({
             />
             {AddFormErrors?.amount && (
               <Alert
-                style={{ marginTop: "2px", borderRadius: "10px" }}
-                className={`${AddFormCss.errorRequestTypeAlert}`}
+                className={`${EditTransactionsFormCss.errorAlert}`}
                 message={AddFormErrors.amount}
                 type="error"
                 showIcon
               />
             )}
-            <div className={AddFormCss.formLabel}>
-              Date: <span style={{ color: "red" }}>*</span>
+            <div className={EditTransactionsFormCss.formLabel}>
+              Date: <span className={EditTransactionsFormCss.mandatory}>*</span>
             </div>
             <DatePicker
-              style={{
-                width: "100%",
-                maxHeight: 100,
-                overflow: "auto",
-                marginTop: "10px",
-                borderRadius: "20px",
-              }}
+              className={EditTransactionsFormCss.addFormInput}
               placeholder="Enter Date"
               onChange={handleDateChange}
               value={addForm?.date && moment(addForm?.date, "DD/MM/YYYY")}
@@ -200,15 +178,15 @@ const AddForm = ({
             />
             {AddFormErrors?.date && (
               <Alert
-                style={{ marginTop: "2px", borderRadius: "10px" }}
-                className={`${AddFormCss.errorRequestTypeAlert}`}
+                className={`${EditTransactionsFormCss.errorAlert}`}
                 message={AddFormErrors.date}
                 type="error"
                 showIcon
               />
             )}
-            <div className={AddFormCss.formLabel}>
-              Category: <span style={{ color: "red" }}>*</span>
+            <div className={EditTransactionsFormCss.formLabel}>
+              Category:{" "}
+              <span className={EditTransactionsFormCss.mandatory}>*</span>
             </div>
             <Select
               showSearch
@@ -228,8 +206,7 @@ const AddForm = ({
             ></Select>
             {AddFormErrors?.category && (
               <Alert
-                style={{ marginTop: "2px", borderRadius: "10px" }}
-                className={`${AddFormCss.errorAlert}`}
+                className={`${EditTransactionsFormCss.errorAlert}`}
                 message={AddFormErrors.category}
                 type="error"
                 showIcon
@@ -252,8 +229,7 @@ const AddForm = ({
                 />
                 {AddFormErrors?.category_others && (
                   <Alert
-                    style={{ marginTop: "2px", borderRadius: "10px" }}
-                    className={`${AddFormCss.errorRequestTypeAlert}`}
+                    className={`${EditTransactionsFormCss.errorAlert}`}
                     message={AddFormErrors.category_others}
                     type="error"
                     showIcon
@@ -261,7 +237,7 @@ const AddForm = ({
                 )}
               </>
             )}
-            <div className={AddFormCss.formLabel}>Remarks: </div>
+            <div className={EditTransactionsFormCss.formLabel}>Remarks: </div>
             <TextArea
               bordered={true}
               style={{ marginBottom: "25px", marginTop: "10px" }}
@@ -284,12 +260,7 @@ const AddForm = ({
                 cancelText="No"
               >
                 <Button
-                  style={{
-                    borderRadius: "20px",
-                    opacity: 0.8,
-                    backdropFilter: "blur(10px)",
-                    boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-                  }}
+                  className={EditTransactionsFormCss.saveButton}
                   type="primary"
                   icon={<CheckSquareFilled />}
                   loading={loading}
@@ -312,13 +283,7 @@ const AddForm = ({
                 cancelText="No"
               >
                 <Button
-                  style={{
-                    margin: "5px",
-                    borderRadius: "20px",
-                    opacity: 0.8,
-                    backdropFilter: "blur(10px)",
-                    boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-                  }}
+                  className={EditTransactionsFormCss.resetButton}
                   type="danger"
                   icon={<CloseSquareFilled />}
                 >
@@ -332,4 +297,4 @@ const AddForm = ({
     </>
   );
 };
-export default AddForm;
+export default EditTransactionsForm;

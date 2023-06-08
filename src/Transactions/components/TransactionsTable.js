@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Space, Table, Popconfirm, notification, Modal, Tag } from "antd";
 import { EditFilled, DeleteFilled } from "@ant-design/icons";
-import AddForm from "./AddForm";
+import EditTransactionsForm from "./EditTransactionsForm";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTransaction } from "../apis/TransactionManagementAPI";
 import {
@@ -185,7 +185,7 @@ const TransactionsTable = ({ loading, setLoading }) => {
           setAddForm({});
         }}
       >
-        <AddForm
+        <EditTransactionsForm
           setModal={setModalOpen}
           addForm={addForm}
           setAddForm={setAddForm}

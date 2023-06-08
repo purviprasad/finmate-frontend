@@ -1,8 +1,9 @@
-.addForm {
+.editForm {
     justify-content: center;
     display: flex;
     align-items: center;
     border-radius: 20px;
+    
 }
 
 .formLabel {
@@ -12,13 +13,11 @@
     margin-right: 10px;
   }
 
-
-
-.errorAlert {
-    
+  .errorAlert {
     margin-top: 2px;
 border-radius: 10px;
 }
+
 
 .addFormCard {
     border-radius: 20px;

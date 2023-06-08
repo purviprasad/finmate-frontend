@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { DatePicker, Select, Space, Row, Col, notification } from "antd";
+import { DatePicker, Select, Space, notification } from "antd";
 import { resetTransactionState } from "../actions/TransactionManagementAction";
 import { getTransactionDetails } from "../apis/TransactionManagementAPI";
 import { useDispatch, useSelector } from "react-redux";
 import TransactionsTable from "./TransactionsTable";
-import {
-  DollarCircleOutlined,
-  RiseOutlined,
-  FallOutlined,
-  BankOutlined,
-} from "@ant-design/icons";
 import moment from "moment";
-// import { useSelector } from "react-redux";
+import TotalCounterCards from "../../common/components/TotalCounterCards";
+
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
@@ -83,7 +78,6 @@ const TransactionsDetails = () => {
           <Option value="year">Year</Option>
           <Option value="custom">Custom</Option>
         </Select>
-        {/* <PickerWithType type={type} onChange={onChange} /> */}
         {type === "date" ? (
           <DatePicker
             defaultValue={moment(new Date(), "DD/MM/YYYY")}
@@ -140,147 +134,7 @@ const TransactionsDetails = () => {
           />
         )}
       </Space>
-      <Row
-        style={{
-          padding: "20px",
-          // background: "#ececec",
-          width: "100%",
-          display: "flex",
-          justifyContent: "space-evenly",
-          flexWrap: "wrap",
-        }}
-      >
-        <Col
-          xs={{ span: 24 }}
-          sm={{ span: 24 }}
-          md={{ span: 11 }}
-          lg={{ span: 5 }}
-          style={{
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
-            borderRadius: "20px",
-            padding: "10px",
-            margin: "6px",
-            backdropFilter: "blur(10px)",
-            boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-          }}
-        >
-          <Row style={{ textAlign: "center", padding: "50px 0" }}>
-            <Col span={10}>
-              <DollarCircleOutlined
-                style={{
-                  color: "#bcad0f",
-                  backgroundColor: "rgb(233 254 84 / 79%)",
-                  borderRadius: "50%",
-                  fontSize: "3rem",
-                  padding: "10px",
-                }}
-              />
-            </Col>
-            <Col span={12}>
-              <span style={{ fontSize: "1.2rem" }}>My Balance</span> <br />{" "}
-              <span style={{ fontSize: "1.4rem", fontWeight: 500 }}>
-                Rs. {transactionDetails?.totalBalance?.toFixed(2)}
-              </span>
-            </Col>
-          </Row>
-        </Col>
-        <Col
-          xs={{ span: 24 }}
-          sm={{ span: 24 }}
-          md={{ span: 11 }}
-          lg={{ span: 5 }}
-          style={{
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
-            borderRadius: "20px",
-            margin: "6px",
-            boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-          }}
-        >
-          <Row style={{ textAlign: "center", padding: "50px 0" }}>
-            <Col span={10}>
-              <RiseOutlined
-                style={{
-                  color: "#55d715",
-                  backgroundColor: "#45ff404f",
-                  borderRadius: "50%",
-                  fontSize: "3rem",
-                  padding: "10px",
-                }}
-              />
-            </Col>
-            <Col span={12}>
-              <span style={{ fontSize: "1.2rem" }}>Income</span> <br />{" "}
-              <span style={{ fontSize: "1.4rem", fontWeight: 500 }}>
-                Rs. {transactionDetails?.totalIncome?.toFixed(2)}
-              </span>
-            </Col>
-          </Row>
-        </Col>
-        <Col
-          xs={{ span: 24 }}
-          sm={{ span: 24 }}
-          md={{ span: 11 }}
-          lg={{ span: 5 }}
-          style={{
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
-            borderRadius: "20px",
-            margin: "6px",
-            boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-          }}
-        >
-          <Row style={{ textAlign: "center", padding: "50px 0" }}>
-            <Col span={10}>
-              <FallOutlined
-                style={{
-                  color: "rgb(237 36 49)",
-                  backgroundColor: "rgb(254 84 97 / 49%)",
-                  borderRadius: "50%",
-                  fontSize: "3rem",
-                  padding: "10px",
-                }}
-              />
-            </Col>
-            <Col span={12}>
-              <span style={{ fontSize: "1.2rem" }}>Expenses</span> <br />{" "}
-              <span style={{ fontSize: "1.4rem", fontWeight: 500 }}>
-                Rs. {transactionDetails?.totalExpense?.toFixed(2)}
-              </span>
-            </Col>
-          </Row>
-        </Col>
-        <Col
-          xs={{ span: 24 }}
-          sm={{ span: 24 }}
-          md={{ span: 11 }}
-          lg={{ span: 5 }}
-          style={{
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
-            borderRadius: "20px",
-            margin: "6px",
-            boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-          }}
-        >
-          <Row style={{ textAlign: "center", padding: "50px 0" }}>
-            <Col span={10}>
-              <BankOutlined
-                style={{
-                  color: "rgb(15 185 188)",
-                  backgroundColor: "rgb(84 253 254 / 46%)",
-                  borderRadius: "50%",
-                  fontSize: "3rem",
-                  padding: "10px",
-                }}
-              />
-            </Col>
-            <Col span={12}>
-              <span style={{ fontSize: "1.2rem" }}>Savings</span> <br />{" "}
-              <span style={{ fontSize: "1.4rem", fontWeight: 500 }}>
-                Rs. {transactionDetails?.totalSavings?.toFixed(2)}
-              </span>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+      <TotalCounterCards counterDetails={transactionDetails} />
       <TransactionsTable loading={loading} setLoading={setLoading} />
     </>
   );

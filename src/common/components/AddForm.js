@@ -130,7 +130,7 @@ const AddForm = ({
   }, []);
   return (
     <>
-      <div className={AddFormCss.requestForm}>
+      <div className={AddFormCss.addForm}>
         <Card
           title={
             !isEdit && (
@@ -138,24 +138,14 @@ const AddForm = ({
             )
           }
           bordered={false}
-          style={{
-            borderRadius: "20px",
-            backgroundColor: "transparent",
-            width: "100%",
-          }}
+          className={AddFormCss.addFormCard}
         >
           <>
             <div className={AddFormCss.formLabel}>
-              Description: <span style={{ color: "red" }}>*</span>
+              Description: <span className={AddFormCss.mandatory}>*</span>
             </div>
             <Input
-              style={{
-                width: "100%",
-                maxHeight: 100,
-                overflow: "auto",
-                marginTop: "10px",
-                borderRadius: "20px",
-              }}
+              className={AddFormCss.addFormInput}
               placeholder="Enter Description"
               name="description"
               onChange={handleAddFormChange}
@@ -163,24 +153,17 @@ const AddForm = ({
             />
             {AddFormErrors?.description && (
               <Alert
-                style={{ marginTop: "2px", borderRadius: "10px" }}
-                className={`${AddFormCss.errorRequestTypeAlert}`}
+                className={`${AddFormCss.errorAlert}`}
                 message={AddFormErrors.description}
                 type="error"
                 showIcon
               />
             )}
             <div className={AddFormCss.formLabel}>
-              Amount: <span style={{ color: "red" }}>*</span>
+              Amount: <span className={AddFormCss.mandatory}>*</span>
             </div>
             <Input
-              style={{
-                width: "100%",
-                maxHeight: 100,
-                overflow: "auto",
-                marginTop: "10px",
-                borderRadius: "20px",
-              }}
+              className={AddFormCss.addFormInput}
               placeholder="Enter Amount(in Rs.)"
               name="amount"
               type="number"
@@ -189,24 +172,17 @@ const AddForm = ({
             />
             {AddFormErrors?.amount && (
               <Alert
-                style={{ marginTop: "2px", borderRadius: "10px" }}
-                className={`${AddFormCss.errorRequestTypeAlert}`}
+                className={`${AddFormCss.errorAlert}`}
                 message={AddFormErrors.amount}
                 type="error"
                 showIcon
               />
             )}
             <div className={AddFormCss.formLabel}>
-              Date: <span style={{ color: "red" }}>*</span>
+              Date: <span className={AddFormCss.mandatory}>*</span>
             </div>
             <DatePicker
-              style={{
-                width: "100%",
-                maxHeight: 100,
-                overflow: "auto",
-                marginTop: "10px",
-                borderRadius: "20px",
-              }}
+              className={AddFormCss.addFormInput}
               placeholder="Enter Date"
               onChange={handleDateChange}
               value={addForm?.date && moment(addForm?.date, "DD/MM/YYYY")}
@@ -219,15 +195,14 @@ const AddForm = ({
             />
             {AddFormErrors?.date && (
               <Alert
-                style={{ marginTop: "2px", borderRadius: "10px" }}
-                className={`${AddFormCss.errorRequestTypeAlert}`}
+                className={`${AddFormCss.errorAlert}`}
                 message={AddFormErrors.date}
                 type="error"
                 showIcon
               />
             )}
             <div className={AddFormCss.formLabel}>
-              Category: <span style={{ color: "red" }}>*</span>
+              Category: <span className={AddFormCss.mandatory}>*</span>
             </div>
             <Select
               showSearch
@@ -247,7 +222,6 @@ const AddForm = ({
             ></Select>
             {AddFormErrors?.category && (
               <Alert
-                style={{ marginTop: "2px", borderRadius: "10px" }}
                 className={`${AddFormCss.errorAlert}`}
                 message={AddFormErrors.category}
                 type="error"
@@ -257,13 +231,7 @@ const AddForm = ({
             {addForm?.category === "Other" && (
               <>
                 <Input
-                  style={{
-                    width: "100%",
-                    maxHeight: 100,
-                    overflow: "auto",
-                    marginTop: "10px",
-                    borderRadius: "20px",
-                  }}
+                  className={AddFormCss.addFormInput}
                   placeholder="Enter Category"
                   name="category_others"
                   onChange={handleAddFormChange}
@@ -271,8 +239,7 @@ const AddForm = ({
                 />
                 {AddFormErrors?.category_others && (
                   <Alert
-                    style={{ marginTop: "2px", borderRadius: "10px" }}
-                    className={`${AddFormCss.errorRequestTypeAlert}`}
+                    className={`${AddFormCss.errorAlert}`}
                     message={AddFormErrors.category_others}
                     type="error"
                     showIcon
@@ -303,12 +270,7 @@ const AddForm = ({
                 cancelText="No"
               >
                 <Button
-                  style={{
-                    borderRadius: "20px",
-                    opacity: 0.8,
-                    backdropFilter: "blur(10px)",
-                    boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-                  }}
+                  className={AddFormCss.saveButton}
                   type="primary"
                   icon={<CheckSquareFilled />}
                   loading={loading}
@@ -329,13 +291,7 @@ const AddForm = ({
                 cancelText="No"
               >
                 <Button
-                  style={{
-                    margin: "5px",
-                    borderRadius: "20px",
-                    opacity: 0.8,
-                    backdropFilter: "blur(10px)",
-                    boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-                  }}
+                  className={AddFormCss.resetButton}
                   type="danger"
                   icon={<CloseSquareFilled />}
                 >

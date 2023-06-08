@@ -1,4 +1,7 @@
 
+.menu-icon {
+  padding-left: 20px
+}
 .App {
   /* height: 100vh; */
   display: flex;
@@ -22,15 +25,9 @@
 }
 
 
-/* 
-.ant-layout-header{
-  background-color: transparent;
-} */
-
 .skr-content {
   padding-left: 10px;
   padding-right: 10px;
-  /* background-color: #ececec; */
   min-height: fit-content !important;
 }
 
