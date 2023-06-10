@@ -59,7 +59,7 @@ const AuthRoot = () => {
           sm={{ span: 24 }}
           md={{ span: 15 }}
           lg={{ span: 15 }}
-          style={{ padding: "10px" }}
+          style={{ padding: "10px", height: "100vh" }}
         >
           <img
             className={AuthCss.loginScreenImage}

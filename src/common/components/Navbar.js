@@ -57,11 +57,17 @@ const Navbar = () => {
 
   return (
     <Affix offsetTop={0}>
+      <img
+        style={{ width: "100%" }}
+        src={process.env.PUBLIC_URL + "/images/logo_transparent.png"}
+        alt="loginScreenImage"
+      />
+
       <Menu
         mode="inline"
         selectedKeys={menuKeys[location.pathname]}
         items={menuItems}
-        style={{ borderRadius: "20px", marginTop: "20px" }}
+        style={{ borderRadius: "20px" }}
       />
     </Affix>
   );
