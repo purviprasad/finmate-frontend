@@ -7,6 +7,7 @@ import ExpenseReducer from "../Expenses/reducers/ExpenseReducer";
 import SavingReducer from "../Savings/reducers/SavingReducer";
 import CommonReducer from "../common/reducers/CommonReducer";
 import TransactionReducer from "../Transactions/reducers/TransactionReducer";
+import BudgetReducer from "../BudgetManagement/reducers/BudgetReducer";
 export default combineReducers({
   DashboardReducer,
   AuthReducer,
@@ -16,4 +17,5 @@ export default combineReducers({
   ExpenseReducer,
   SavingReducer,
   TransactionReducer,
+  BudgetReducer,
 });

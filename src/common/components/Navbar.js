@@ -7,6 +7,7 @@ import {
   RiseOutlined,
   FallOutlined,
   BankOutlined,
+  ScissorOutlined,
 } from "@ant-design/icons";
 
 const Navbar = () => {
@@ -18,6 +19,7 @@ const Navbar = () => {
     "/incomes": "3",
     "/expenses": "4",
     "/savings": "5",
+    "/budget": "6",
   };
 
   const menuItems = [
@@ -32,19 +34,24 @@ const Navbar = () => {
       icon: <FolderViewOutlined />,
     },
     {
-      label: <Link to="/incomes">Incomes</Link>,
+      label: <Link to="/incomes">Manage Incomes</Link>,
       key: "3",
       icon: <RiseOutlined />,
     },
     {
-      label: <Link to="/expenses">Expenses</Link>,
+      label: <Link to="/expenses">Manage Expenses</Link>,
       key: "4",
       icon: <FallOutlined />,
     },
     {
-      label: <Link to="/savings">Savings</Link>,
+      label: <Link to="/savings">Manage Savings</Link>,
       key: "5",
       icon: <BankOutlined />,
+    },
+    {
+      label: <Link to="/budget">Manage Budget</Link>,
+      key: "6",
+      icon: <ScissorOutlined />,
     },
   ];
 
@@ -54,7 +61,7 @@ const Navbar = () => {
         mode="inline"
         selectedKeys={menuKeys[location.pathname]}
         items={menuItems}
-        style={{borderRadius: "20px", marginTop: "20px"}}
+        style={{ borderRadius: "20px", marginTop: "20px" }}
       />
     </Affix>
   );

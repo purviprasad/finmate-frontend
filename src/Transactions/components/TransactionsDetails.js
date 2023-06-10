@@ -12,16 +12,17 @@ const { RangePicker } = DatePicker;
 
 const TransactionsDetails = () => {
   //value is current date in YYYY-MM format
-  const [value, setValue] = useState(`${moment().format("DD/MM/YYYY")}`);
   const dispatch = useDispatch();
+
+  const transactionDetails = useSelector(state => state.TransactionReducer);
+  const [loading, setLoading] = useState(false);
+
+  const [value, setValue] = useState(`${moment().format("YYYY-MM")}`);
+  const [type, setType] = useState("month");
   const onChange = (value, dateString) => {
     setValue(dateString);
     loadTransactionDetails(type, dateString);
   };
-  const [type, setType] = useState("date");
-  const transactionDetails = useSelector(state => state.TransactionReducer);
-  const [loading, setLoading] = useState(false);
-
   const handleSetType = type => {
     let value = "";
     setType(type);
@@ -92,7 +93,10 @@ const TransactionsDetails = () => {
               moment(new Date(), "DD/MM/YYYY"),
               moment(new Date(), "DD/MM/YYYY"),
             ]}
-            value={[moment(value, "DD/MM/YYYY"), moment(value, "DD/MM/YYYY")]}
+            value={[
+              moment(value[0], "DD/MM/YYYY"),
+              moment(value[1], "DD/MM/YYYY"),
+            ]}
             format="DD/MM/YYYY"
             onChange={onChange}
             allowClear={false}

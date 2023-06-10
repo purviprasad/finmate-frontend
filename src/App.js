@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Suspense, lazy } from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory, Redirect } from "react-router-dom";
 import Navbar from "./common/components/Navbar";
 import { Layout } from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
@@ -68,7 +68,9 @@ const App = () => {
   const TransactionsManagementRoot = lazy(() =>
     import("./Transactions/components/TransactionsManagementRoot")
   );
-
+  const BudgetManagementRoot = lazy(() =>
+    import("./BudgetManagement/components/BudgetManagementRoot")
+  );
   return (
     <div className="App">
       <Layout>
@@ -109,7 +111,11 @@ const App = () => {
                     </>
                   </Header>
                 )}
-                <Route exact path="/auth" component={AuthRoot} />
+                {isAuth ? (
+                  <Redirect to="/" />
+                ) : (
+                  <Route exact path="/auth" component={AuthRoot} />
+                )}
                 {isAuth && (
                   <Content className="skr-content">
                     <ProtectRoute
@@ -137,7 +143,14 @@ const App = () => {
                       path="/transactions"
                       component={TransactionsManagementRoot}
                     />
-                    {/* <Route path="*" component={PageNotFound} /> */}
+                    <ProtectRoute
+                      exact
+                      path="/budget"
+                      component={BudgetManagementRoot}
+                    />
+                    {/* <Route path="*">
+                      <Redirect to="/" />
+                    </Route> */}
                   </Content>
                 )}
               </Layout>
