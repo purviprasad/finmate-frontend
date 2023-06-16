@@ -23,12 +23,15 @@ import "../../css/EditModalOverride.css";
 import AddBillFormCss from "../../css/AddBillForm.module.css";
 
 import AddBillForm from "./AddBillForm";
+import ViewTimeline from "./ViewTimeline";
 const BillTable = ({ loading, setLoading, selected, handleSelected }) => {
   const billDetails = useSelector(state => state.BillReducer);
   const [modal1Open, setModalOpen] = useState(false);
 
   const [addBillForm, setAddBillForm] = useState({});
   const [AddBillFormErrors, setAddBillFormErrors] = useState({});
+  const [viewModal, setViewModal] = useState(false);
+  const [viewBill, setViewBill] = useState({});
   const dispatch = useDispatch();
 
   let columns =
@@ -163,6 +166,20 @@ const BillTable = ({ loading, setLoading, selected, handleSelected }) => {
         ]
       : [
           {
+            title: "View",
+            key: "view",
+            width: 70,
+            fixed: "left",
+            render: record => (
+              <Space
+                size="middle"
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                <EyeTwoTone onClick={() => handleView(record)} />
+              </Space>
+            ),
+          },
+          {
             title: "Description",
             dataIndex: "description",
             key: "description",
@@ -222,6 +239,10 @@ const BillTable = ({ loading, setLoading, selected, handleSelected }) => {
     dispatch(setEditDetails(record));
     setModalOpen(true);
   };
+  const handleView = record => {
+    setViewBill(record);
+    setViewModal(true);
+  };
   const handleDelete = async record => {
     setLoading(true);
     try {
@@ -257,10 +278,6 @@ const BillTable = ({ loading, setLoading, selected, handleSelected }) => {
       message: "Paid Successfully",
     });
   };
-  const handleView = record => {
-    // setViewBill(record);
-    // setViewModal(true);
-  };
 
   return (
     <>
@@ -293,6 +310,21 @@ const BillTable = ({ loading, setLoading, selected, handleSelected }) => {
           AddBillFormErrors={AddBillFormErrors}
           setAddBillFormErrors={setAddBillFormErrors}
         />
+      </Modal>
+      <Modal
+        title="Bill Timeline"
+        style={{
+          top: 20,
+        }}
+        open={viewModal}
+        onCancel={() => setViewModal(false)}
+        footer={null}
+        maskClosable={false}
+        afterClose={() => {
+          setViewBill([]);
+        }}
+      >
+        <ViewTimeline bill={viewBill} />
       </Modal>
       <Table
         bordered={true}

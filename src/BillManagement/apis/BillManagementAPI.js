@@ -1,5 +1,18 @@
 import { api } from "../../api";
 import { setBillDetails } from "../actions/BillManagementAction";
+
+export const getTransactionDetailsByBillId = (bill_id, dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    await api()
+      .get("/transaction/viewTransactionsDetailsByBillId/" + bill_id)
+      .then(response => {
+        resolve(response.data?.data);
+      })
+      .catch(error => {
+        reject(error?.response?.data?.error?.[0].msg);
+      });
+  });
+};
 export const getBillDetails = (selected, dispatch) => {
   return new Promise(async (resolve, reject) => {
     let url = "/bill/viewActiveBillDetails";
