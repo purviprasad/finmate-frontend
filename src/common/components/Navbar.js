@@ -8,6 +8,7 @@ import {
   FallOutlined,
   BankOutlined,
   ScissorOutlined,
+  ExceptionOutlined,
 } from "@ant-design/icons";
 
 const Navbar = () => {
@@ -20,6 +21,7 @@ const Navbar = () => {
     "/expenses": "4",
     "/savings": "5",
     "/budget": "6",
+    "/bill": "7",
   };
 
   const menuItems = [
@@ -53,6 +55,11 @@ const Navbar = () => {
       key: "6",
       icon: <ScissorOutlined />,
     },
+    {
+      label: <Link to="/bill">Manage Bills</Link>,
+      key: "7",
+      icon: <ExceptionOutlined />,
+    },
   ];
 
   return (
@@ -67,7 +74,7 @@ const Navbar = () => {
         mode="inline"
         selectedKeys={menuKeys[location.pathname]}
         items={menuItems}
-        style={{ borderRadius: "20px" }}
+        style={{ borderRadius: "20px", paddingBottom: "10px" }}
       />
     </Affix>
   );

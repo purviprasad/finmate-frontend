@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const AddFormValidate = async (reqObj, AddFormErrors) => {
   return new Promise((resolve, reject) => {
     let errorsCount = 0;
@@ -10,19 +12,20 @@ export const AddFormValidate = async (reqObj, AddFormErrors) => {
     if (reqObj.amount === 0) {
       AddFormErrors.amount = "Amount Field cannot be 0";
       errorsCount++;
-    }
-    else if((reqObj.amount && (reqObj.amount.toString().match(/^\d*\.?\d*$/) ===
-    null)) || (reqObj.amount <=0)){
+    } else if (
+      (reqObj.amount &&
+        reqObj.amount.toString().match(/^\d*\.?\d*$/) === null) ||
+      reqObj.amount <= 0
+    ) {
       AddFormErrors.amount = "Amount is Invalid";
       errorsCount++;
-    }
-    else {
+    } else {
       AddFormErrors.amount = "";
     }
     if (!reqObj.date) {
       AddFormErrors.date = "Date Field cannot be empty";
       errorsCount++;
-    }else if (reqObj.date && isNaN(Date.parse(reqObj.date))) {
+    } else if (reqObj.date && !moment(reqObj.date, "DD/MM/YYYY").isValid()) {
       AddFormErrors.date = "Date Field is Invalid";
       errorsCount++;
     } else {
@@ -31,11 +34,13 @@ export const AddFormValidate = async (reqObj, AddFormErrors) => {
     if (!reqObj.category) {
       AddFormErrors.category = "Category Field cannot be empty";
       errorsCount++;
-    } else if(reqObj.category==="Other" && (!reqObj.category_others || reqObj.category_others?.trim()==="")){
+    } else if (
+      reqObj.category === "Other" &&
+      (!reqObj.category_others || reqObj.category_others?.trim() === "")
+    ) {
       AddFormErrors.category_others = "Category Others Field cannot be empty";
       errorsCount++;
-    }
-    else {
+    } else {
       AddFormErrors.category_others = "";
       AddFormErrors.category = "";
     }

@@ -15,7 +15,6 @@ const SavingsTable = ({ loading, setLoading }) => {
   const savingDetails = useSelector(state => state.SavingReducer);
 
   const [modal1Open, setModalOpen] = useState(false);
-  // const [isEditData, setIsEditData] = useState({});
   const [addForm, setAddForm] = useState({});
   const [AddFormErrors, setAddFormErrors] = useState({});
   const dispatch = useDispatch();

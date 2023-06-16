@@ -71,6 +71,9 @@ const App = () => {
   const BudgetManagementRoot = lazy(() =>
     import("./BudgetManagement/components/BudgetManagementRoot")
   );
+  const BillManagementRoot = lazy(() =>
+    import("./BillManagement/components/BillManagementRoot")
+  );
   return (
     <div className="App">
       <Layout>
@@ -147,6 +150,11 @@ const App = () => {
                       exact
                       path="/budget"
                       component={BudgetManagementRoot}
+                    />
+                    <ProtectRoute
+                      exact
+                      path="/bill"
+                      component={BillManagementRoot}
                     />
                     {/* <Route path="*">
                       <Redirect to="/" />

@@ -111,7 +111,6 @@ const AddBudgetForm = ({
   ]);
 
   const onChange = (value, dateString) => {
-    console.log("Selected Time: ", dateString);
     setValue(dateString);
     setAddBudgetForm({
       ...addBudgetForm,

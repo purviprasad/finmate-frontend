@@ -8,6 +8,7 @@ import SavingReducer from "../Savings/reducers/SavingReducer";
 import CommonReducer from "../common/reducers/CommonReducer";
 import TransactionReducer from "../Transactions/reducers/TransactionReducer";
 import BudgetReducer from "../BudgetManagement/reducers/BudgetReducer";
+import BillReducer from "../BillManagement/reducers/BillReducer";
 export default combineReducers({
   DashboardReducer,
   AuthReducer,
@@ -18,4 +19,5 @@ export default combineReducers({
   SavingReducer,
   TransactionReducer,
   BudgetReducer,
+  BillReducer,
 });

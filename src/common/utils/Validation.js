@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const AddFormValidate = async (reqObj, AddFormErrors) => {
   return new Promise((resolve, reject) => {
     let errorsCount = 0;
@@ -23,7 +25,7 @@ export const AddFormValidate = async (reqObj, AddFormErrors) => {
     if (!reqObj.date) {
       AddFormErrors.date = "Date Field cannot be empty";
       errorsCount++;
-    } else if (reqObj.date && isNaN(Date.parse(reqObj.date))) {
+    } else if (reqObj.date && !moment(reqObj.date, "DD/MM/YYYY").isValid()) {
       AddFormErrors.date = "Date Field is Invalid";
       errorsCount++;
     } else {

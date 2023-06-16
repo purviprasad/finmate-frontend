@@ -53,15 +53,19 @@ const AddForm = ({
   };
 
   const handleReset = () => {
-    setAddForm({
-      type: formType,
-      description: "",
-      amount: "",
-      date: "",
-      category: "",
-      category_others: "",
-      remarks: "",
-    });
+    isEdit
+      ? setAddForm({
+          ...commonReducer.editData,
+        })
+      : setAddForm({
+          type: formType,
+          description: "",
+          amount: "",
+          date: "",
+          category: "",
+          category_others: "",
+          remarks: "",
+        });
     setAddFormErrors({});
   };
 
