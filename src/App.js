@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Suspense, lazy } from "react";
-import { Route, Switch, useHistory, Redirect } from "react-router-dom";
+import {
+  Route,
+  Switch,
+  useHistory,
+  Redirect,
+  useLocation,
+} from "react-router-dom";
 import Navbar from "./common/components/Navbar";
 import { Layout } from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
@@ -20,7 +26,7 @@ const AuthRoot = lazy(() =>
 // const PageNotFound = lazy(() => import("./common/components/PageNotFound"));
 
 const App = () => {
-  // const location = useLocation();
+  const location = useLocation();
   const history = useHistory();
   const isAuth = useSelector(state => state.AuthReducer.isAuth);
 
@@ -115,7 +121,7 @@ const App = () => {
                   </Header>
                 )}
                 {isAuth ? (
-                  <Redirect to="/" />
+                  <Redirect to={location.pathname} />
                 ) : (
                   <Route exact path="/auth" component={AuthRoot} />
                 )}
