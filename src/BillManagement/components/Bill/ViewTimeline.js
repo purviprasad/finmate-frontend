@@ -28,7 +28,7 @@ const ViewTimeline = ({ bill }) => {
       }}
     >
       <Spin tip="Loading..." spinning={loading}>
-        {itemData.length > 0 && (
+        {itemData.length > 0 ? (
           <Timeline mode="alternate" reverse={true}>
             {itemData.map((item, index) => {
               return (
@@ -69,7 +69,21 @@ const ViewTimeline = ({ bill }) => {
               </Timeline.Item>
             ) : null}
           </Timeline>
-        )}
+        ) : bill.status === "Not Paid" ? (
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Timeline.Item
+              dot={
+                <ClockCircleOutlined
+                  style={{
+                    fontSize: "16px",
+                  }}
+                />
+              }
+            >
+              <p>Due On: {bill.due_date}</p>
+            </Timeline.Item>
+          </div>
+        ) : null}
       </Spin>
     </div>
   );
