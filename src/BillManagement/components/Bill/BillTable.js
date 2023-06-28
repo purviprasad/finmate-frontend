@@ -8,6 +8,7 @@ import {
   Button,
   Segmented,
 } from "antd";
+import moment from "moment";
 import { EditFilled, CloseSquareFilled, EyeTwoTone } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -110,7 +111,10 @@ const BillTable = ({ loading, setLoading, selected, handleSelected }) => {
                 size="middle"
                 style={{ display: "flex", justifyContent: "center" }}
               >
-                {record.status === "Not Paid" ? (
+                {record.status === "Not Paid" ||
+                moment(record.due_date, "DD/MM/YYYY")
+                  .subtract(5, "days")
+                  .diff(moment(moment(), "days")) <= 0 ? (
                   <PayBtn record={record} handlePay={handlePay} />
                 ) : (
                   <>
