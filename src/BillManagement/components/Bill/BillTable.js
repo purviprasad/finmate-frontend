@@ -232,18 +232,17 @@ const BillTable = ({ loading, setLoading, selected, handleSelected }) => {
     setLoading(true);
     try {
       await cancelBillTransaction(billDetails, record, dispatch);
+      notification.success({
+        message: "Canceled Successfully",
+      });
     } catch (error) {
       notification.error({
         message: "Error",
-        description: error ? error.message : "Something went wrong.",
+        description: error ? error : "Something went wrong.",
       });
     } finally {
       setLoading(false);
     }
-
-    notification.success({
-      message: "Canceled Successfully",
-    });
   };
   const handlePay = async record => {
     return new Promise(async (resolve, reject) => {

@@ -44,7 +44,7 @@ export const cancelBillTransaction = (data1, record1, dispatch) => {
         resolve(response.data);
       })
       .catch(error => {
-        reject(error?.response?.data?.error?.[0].msg);
+        reject(error?.response?.data?.message);
       });
   });
 };

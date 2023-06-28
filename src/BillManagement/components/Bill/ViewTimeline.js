@@ -11,7 +11,13 @@ const ViewTimeline = ({ bill }) => {
   const fetchItemData = async () => {
     setLoading(true);
     await getTransactionDetailsByBillId(bill.bill_id).then(data => {
-      setItemData(data);
+      if (data.length > 0) {
+        setItemData(data);
+      } else if (bill.status === "Canceled") {
+        setItemData([bill]);
+      } else {
+        setItemData([]);
+      }
     });
     setLoading(false);
   };
@@ -34,7 +40,7 @@ const ViewTimeline = ({ bill }) => {
               return (
                 <Timeline.Item key={index} color="green">
                   {item.due_date && <p>Due On: {item.due_date}</p>}
-                  <p>Paid On: {item.date}</p>
+                  <p>Paid On: {item.date ? item.date : "N/A"}</p>
                   <p>Amount: Rs.{item.amount}</p>
                 </Timeline.Item>
               );
