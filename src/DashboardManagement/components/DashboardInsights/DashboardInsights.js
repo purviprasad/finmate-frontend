@@ -10,6 +10,15 @@ const DashboardInsights = ({ type, value }) => {
     xField: "date",
     yField: "amount",
     seriesField: "type",
+    color: ({ type }) => {
+      if (type === "Income") {
+        return "#55d715";
+      } else if (type === "Expense") {
+        return "#ED2431";
+      } else {
+        return "#0FB9BC";
+      }
+    },
     padding: 100,
     scrollbar: {
       type: "horizontal",
@@ -74,7 +83,11 @@ const DashboardInsights = ({ type, value }) => {
       date: {
         alias: "Date",
         formatter: date => {
-          return `Date ${date.split("/")[0]}`;
+          if (type === "month") {
+            return `Date ${date.split("/")[0]}`;
+          } else {
+            return `Month ${date.split("/")[0]}`;
+          }
         },
       },
       amount: {
