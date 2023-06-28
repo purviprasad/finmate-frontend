@@ -113,7 +113,7 @@ const App = () => {
                       ) : (
                         <MenuFoldOutlined
                           className="menu-icon"
-                          onClick={() => setCollapsed(prev => !prev)}
+                          onClick={() => setCollapsed(prev => !prev)\}
                         />
                       )}
                       <ProfileRoot />
