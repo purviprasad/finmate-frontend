@@ -14,8 +14,14 @@ const RecentTransactionsTable = () => {
     },
     {
       title: "Category",
-      dataIndex: "category",
       key: "category",
+      render: record => (
+        <>
+          {record.category === "Other"
+            ? record.category_others
+            : record.category}
+        </>
+      ),
     },
     {
       title: "Type",
