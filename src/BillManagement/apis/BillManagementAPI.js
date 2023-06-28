@@ -55,8 +55,10 @@ export const AddBillFormDetails = (reducer, bill, dispatch) => {
       .post("/bill/addBillDetails", bill)
       .then(response => {
         bill.bill_id = response.data.data?.bill_id;
-        let data = [bill, ...reducer.billTransactions];
-        dispatch(setBillDetails(data));
+        if (response.data.data?.status !== "Completed") {
+          let data = [bill, ...reducer.billTransactions];
+          dispatch(setBillDetails(data));
+        }
         resolve(true);
       })
       .catch(error => {
