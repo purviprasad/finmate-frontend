@@ -24,6 +24,7 @@ import AddBillFormCss from "../../css/AddBillForm.module.css";
 
 import AddBillForm from "./AddBillForm";
 import ViewTimeline from "./ViewTimeline";
+import PayBtn from "./PayBtn";
 const BillTable = ({ loading, setLoading, selected, handleSelected }) => {
   const billDetails = useSelector(state => state.BillReducer);
   const [modal1Open, setModalOpen] = useState(false);
@@ -110,27 +111,10 @@ const BillTable = ({ loading, setLoading, selected, handleSelected }) => {
                 style={{ display: "flex", justifyContent: "center" }}
               >
                 {record.status === "Not Paid" ? (
-                  <Popconfirm
-                    title="Are you sure the bill is Paid?"
-                    onConfirm={() => {
-                      handlePay(record);
-                    }}
-                    okText="Yes"
-                    cancelText="No"
-                  >
-                    <Button
-                      className={AddBillFormCss.payButton}
-                      loading={loading}
-                    >
-                      {loading ? <>Paying ...</> : <>Pay</>}
-                    </Button>
-                  </Popconfirm>
+                  <PayBtn record={record} handlePay={handlePay} />
                 ) : (
                   <>
-                    <Button
-                      className={AddBillFormCss.paidButton}
-                      loading={loading}
-                    >
+                    <Button className={AddBillFormCss.paidButton}>
                       {record.status}
                     </Button>
                   </>
@@ -221,10 +205,7 @@ const BillTable = ({ loading, setLoading, selected, handleSelected }) => {
                 style={{ display: "flex", justifyContent: "center" }}
               >
                 <>
-                  <Button
-                    className={AddBillFormCss.paidButton}
-                    loading={loading}
-                  >
+                  <Button className={AddBillFormCss.paidButton}>
                     {record.status}
                   </Button>
                 </>
@@ -261,21 +242,21 @@ const BillTable = ({ loading, setLoading, selected, handleSelected }) => {
     });
   };
   const handlePay = async record => {
-    record.status = "Paid";
-    setLoading(true);
-    try {
-      await UpdateBillStatus(billDetails, record, dispatch);
-    } catch (error) {
-      notification.error({
-        message: "Error",
-        description: error ? error.message : "Something went wrong.",
+    return new Promise(async (resolve, reject) => {
+      record.status = "Paid";
+      try {
+        await UpdateBillStatus(billDetails, record, dispatch);
+      } catch (error) {
+        notification.error({
+          message: "Error",
+          description: error ? error.message : "Something went wrong.",
+        });
+      } finally {
+        resolve(true);
+      }
+      notification.success({
+        message: "Paid Successfully",
       });
-    } finally {
-      setLoading(false);
-    }
-
-    notification.success({
-      message: "Paid Successfully",
     });
   };
 
