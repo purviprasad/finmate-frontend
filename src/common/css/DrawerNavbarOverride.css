@@ -1,0 +1,21 @@
+.ant-drawer-content-wrapper-hidden {
+    width: 0px !important;
+    transform: all 0.3s;
+}
+
+/* .ant-drawer-content-wrapper {
+
+    transition: all 0.3s;
+}
+.ant-drawer-left.ant-drawer-open .ant-drawer-content-wrapper {
+    transition: all 0.3s;
+
+}
+.ant-drawer .ant-drawer-content
+{
+    transition: all 0.3s;
+}
+
+.ant-drawer-left.ant-drawer-open, .ant-drawer-right.ant-drawer-open {
+    transition: all 0.3s;
+} */

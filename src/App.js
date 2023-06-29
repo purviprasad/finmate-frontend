@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ProtectRoute from "./UserManagement/components/auth/ProtectRoute";
 import { setIsAuth } from "./UserManagement/actions/AuthManagementAction";
 import { getUserDetails } from "./UserManagement/apis/UserManagementAPI";
+import DrawerNavbar from "./common/components/DrawerNavbar";
 
 const { Sider, Header, Content } = Layout;
 const ProfileRoot = lazy(() =>
@@ -22,6 +23,27 @@ const ProfileRoot = lazy(() =>
 );
 const AuthRoot = lazy(() =>
   import("./UserManagement/components/auth/AuthRoot")
+);
+const DashboardManagementRoot = lazy(() =>
+  import("./DashboardManagement/components/DashboardManagementRoot")
+);
+const IncomeManagementRoot = lazy(() =>
+  import("./Incomes/components/IncomeManagementRoot")
+);
+const ExpenseManagementRoot = lazy(() =>
+  import("./Expenses/components/ExpenseManagementRoot")
+);
+const SavingsManagementRoot = lazy(() =>
+  import("./Savings/components/SavingsManagementRoot")
+);
+const TransactionsManagementRoot = lazy(() =>
+  import("./Transactions/components/TransactionsManagementRoot")
+);
+const BudgetManagementRoot = lazy(() =>
+  import("./BudgetManagement/components/BudgetManagementRoot")
+);
+const BillManagementRoot = lazy(() =>
+  import("./BillManagement/components/BillManagementRoot")
 );
 // const PageNotFound = lazy(() => import("./common/components/PageNotFound"));
 
@@ -57,46 +79,58 @@ const App = () => {
     // eslint-disable-next-line
   }, [isAuth, localStorage.getItem("token"), localStorage.getItem("isAuth")]);
 
+  const [screenSize, setScreenSize] = useState(getCurrentDimension());
+
+  function getCurrentDimension() {
+    return {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
+  }
+
+  useEffect(() => {
+    const updateDimension = () => {
+      setScreenSize(getCurrentDimension());
+    };
+    window.addEventListener("resize", updateDimension);
+
+    return () => {
+      window.removeEventListener("resize", updateDimension);
+    };
+  }, [screenSize]);
+
   const [collapsed, setCollapsed] = useState(false);
 
-  const DashboardManagementRoot = lazy(() =>
-    import("./DashboardManagement/components/DashboardManagementRoot")
-  );
-  const IncomeManagementRoot = lazy(() =>
-    import("./Incomes/components/IncomeManagementRoot")
-  );
-  const ExpenseManagementRoot = lazy(() =>
-    import("./Expenses/components/ExpenseManagementRoot")
-  );
-  const SavingsManagementRoot = lazy(() =>
-    import("./Savings/components/SavingsManagementRoot")
-  );
-  const TransactionsManagementRoot = lazy(() =>
-    import("./Transactions/components/TransactionsManagementRoot")
-  );
-  const BudgetManagementRoot = lazy(() =>
-    import("./BudgetManagement/components/BudgetManagementRoot")
-  );
-  const BillManagementRoot = lazy(() =>
-    import("./BillManagement/components/BillManagementRoot")
-  );
+  console.log("screenSize", screenSize.width, screenSize.height, "px");
+
   return (
     <div className="App">
       <Layout>
         {isAuth && (
-          <Sider
-            trigger={null}
-            collapsible
-            collapsed={collapsed}
-            theme="light"
-            style={{
-              borderRadius: "20px",
-              margin: "10px",
-              boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-            }}
-          >
-            <Navbar />
-          </Sider>
+          <>
+            {screenSize.width < 992 ? (
+              collapsed && (
+                <DrawerNavbar
+                  collapsed={collapsed}
+                  setCollapsed={setCollapsed}
+                />
+              )
+            ) : (
+              <Sider
+                trigger={null}
+                collapsible
+                collapsed={collapsed}
+                theme="light"
+                style={{
+                  borderRadius: "20px",
+                  margin: "10px",
+                  boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+                }}
+              >
+                <Navbar />
+              </Sider>
+            )}
+          </>
         )}
         <Suspense fallback={"Loading..."}>
           <Switch>

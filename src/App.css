@@ -47,3 +47,11 @@ pre::-webkit-scrollbar {
 pre::-webkit-scrollbar-track {
   background: #e6e6e6;
 }
+
+/* For Small and Medium Screens */
+@media screen and (max-width: 992px) {
+  
+  .skr-content {
+    width: 100vw;
+  }
+}
