@@ -9,7 +9,7 @@ export const getTransactionDetailsByBillId = (bill_id, dispatch) => {
         resolve(response.data?.data);
       })
       .catch(error => {
-        reject(error?.response?.data?.error?.[0].msg);
+        reject(error?.response?.data?.message);
       });
   });
 };
@@ -27,7 +27,7 @@ export const getBillDetails = (selected, dispatch) => {
         resolve(true);
       })
       .catch(error => {
-        reject(error?.response?.data?.error?.[0].msg);
+        reject(error?.response?.data?.message);
       });
   });
 };
@@ -63,7 +63,7 @@ export const AddBillFormDetails = (reducer, bill, dispatch) => {
         resolve(true);
       })
       .catch(error => {
-        reject(error?.response?.data?.error?.[0].msg);
+        reject(error?.response?.data?.message);
       });
   });
 };
@@ -84,7 +84,7 @@ export const UpdateForm = (reducer, record, dispatch) => {
         resolve(true);
       })
       .catch(error => {
-        reject(error?.response?.data?.error?.[0].msg);
+        reject(error?.response?.data?.message);
       });
   });
 };
@@ -110,7 +110,7 @@ export const UpdateBillStatus = (reducer, record, dispatch) => {
         resolve(true);
       })
       .catch(error => {
-        reject(error?.response?.data?.error?.[0].msg);
+        reject(error?.response?.data?.message);
       });
   });
 };

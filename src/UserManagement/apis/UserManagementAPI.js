@@ -11,8 +11,8 @@ export const getUserDetails = dispatch => {
         resolve(response.data);
       })
       .catch(error => {
-        dispatch(setAuthError(error?.response?.data?.error?.[0].msg));
-        reject(error?.response?.data?.error?.[0].msg);
+        dispatch(setAuthError(error?.response?.data?.message));
+        reject(error?.response?.data?.message);
       });
   });
 };

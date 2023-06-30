@@ -33,7 +33,7 @@ export const AddFormDetails = (reducer, record1, formType, dispatch) => {
         resolve(true);
       })
       .catch(error => {
-        reject(error?.response?.data?.error?.[0].msg);
+        reject(error?.response?.data?.message);
       });
   });
 };
@@ -83,7 +83,7 @@ export const UpdateForm = (reducer, editData, record1, formType, dispatch) => {
         resolve(true);
       })
       .catch(error => {
-        reject(error?.response?.data?.error?.[0].msg);
+        reject(error?.response?.data?.message);
       });
   });
 };

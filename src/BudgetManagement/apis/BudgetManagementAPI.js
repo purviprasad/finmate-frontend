@@ -14,7 +14,7 @@ export const getBudgetDetails = (dateType, dateStart, dateEnd, dispatch) => {
         resolve(true);
       })
       .catch(error => {
-        reject(error?.response?.data?.error?.[0].msg);
+        reject(error?.response?.data?.message);
       });
   });
 };
@@ -36,7 +36,7 @@ export const deleteBudgetTransaction = (data1, record1, dispatch) => {
         resolve(response.data);
       })
       .catch(error => {
-        reject(error?.response?.data?.error?.[0].msg);
+        reject(error?.response?.data?.message);
       });
   });
 };
@@ -58,7 +58,7 @@ export const AddBudgetFormDetails = (reducer, budget, dispatch) => {
         resolve(true);
       })
       .catch(error => {
-        reject(error?.response?.data?.error?.[0].msg);
+        reject(error?.response?.data?.message);
       });
   });
 };
@@ -92,7 +92,7 @@ export const UpdateForm = (reducer, editData, record, dispatch) => {
         resolve(true);
       })
       .catch(error => {
-        reject(error?.response?.data?.error?.[0].msg);
+        reject(error?.response?.data?.message);
       });
   });
 };

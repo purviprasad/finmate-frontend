@@ -17,7 +17,7 @@ export const getMonthDashboardDetails = (dateType, date, dispatch) => {
         resolve(true);
       })
       .catch(error => {
-        reject(error?.response?.data?.error?.[0].msg);
+        reject(error?.response?.data?.message);
       });
   });
 };
@@ -32,7 +32,7 @@ export const loadRecentTransactionsDetails = (limit, dispatch) => {
         resolve(true);
       })
       .catch(error => {
-        reject(error?.response?.data?.error?.[0].msg);
+        reject(error?.response?.data?.message);
       });
   });
 };
