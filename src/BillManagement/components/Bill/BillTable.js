@@ -296,10 +296,9 @@ const BillTable = ({ loading, setLoading, selected, handleSelected }) => {
         />
       </Modal>
       <Modal
+        style={{ top: 20 }}
+        bodyStyle={{ overflowY: "scroll", height: "80vh" }}
         title="Bill Timeline"
-        style={{
-          top: 20,
-        }}
         open={viewModal}
         onCancel={() => setViewModal(false)}
         footer={null}

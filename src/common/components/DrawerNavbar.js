@@ -14,6 +14,7 @@ const DrawerNavbar = ({ collapsed, setCollapsed }) => {
       onClose={onClose}
       open={collapsed}
       key="left"
+      width="60vw"
     >
       <Navbar />
     </Drawer>
