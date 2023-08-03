@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Menu, Dropdown } from "antd";
+import { Avatar, Dropdown } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
 import { logout } from "../../apis/AuthManagementAPI";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,7 @@ const ProfileRoot = () => {
     await logout(dispatch);
   };
 
-  const menuItems = [
+  const items = [
     // {
     //   label: <Link to={"/profile"}>My Profile</Link>,
     //   key: "1",
@@ -35,11 +35,9 @@ const ProfileRoot = () => {
     },
   ];
 
-  const menu = <Menu items={menuItems} />;
-
   return (
     <>
-      <Dropdown overlay={menu} trigger={["click"]}>
+      <Dropdown menu={{ items }} trigger={["click"]}>
         <Avatar
           style={{
             color: "#f56a00",

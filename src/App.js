@@ -101,8 +101,6 @@ const App = () => {
 
   const [collapsed, setCollapsed] = useState(false);
 
-  console.log("screenSize", screenSize.width, screenSize.height, "px");
-
   return (
     <div className="App">
       <Layout>

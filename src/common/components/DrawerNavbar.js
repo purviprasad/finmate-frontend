@@ -6,7 +6,6 @@ const DrawerNavbar = ({ collapsed, setCollapsed }) => {
   const onClose = () => {
     setCollapsed(false);
   };
-  console.log(collapsed);
   return (
     <Drawer
       placement={"left"}
