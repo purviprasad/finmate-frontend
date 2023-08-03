@@ -23,6 +23,12 @@
     "web-vitals": "^2.1.4",
     "webpack": "4.42.0"
   },
+  "overrides": {
+    "@ant-design/charts": {
+      "antd": "^5.8.1",
+      "@ant-design/icons": "^5.0.0"
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
