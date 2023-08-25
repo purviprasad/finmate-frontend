@@ -32,6 +32,7 @@ export const deleteBudgetTransaction = (data1, record1, dispatch) => {
         let totalSpent =
           parseFloat(data1.totalSpent) - parseFloat(record1.spent);
         let status = totalSpent >= totalBudget ? "Over Limit" : "Under Limit";
+        if (totalBudget === 0) status = "N/A";
         dispatch(setBudgetDetails({ data, totalBudget, totalSpent, status }));
         resolve(response.data);
       })
