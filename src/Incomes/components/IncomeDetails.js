@@ -125,6 +125,7 @@ const IncomeDetails = () => {
               borderRadius: "20px",
               backdropFilter: "blur(10px)",
               boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+              height: "100%",
             }}
           >
             <AddForm

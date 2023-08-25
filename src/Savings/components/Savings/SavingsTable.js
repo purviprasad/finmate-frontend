@@ -7,7 +7,7 @@ import {
   resetEditState,
 } from "../../../common/actions/CommonAction";
 import { deleteSavingTransaction } from "../../apis/SavingManagementAPI";
-
+import moment from "moment";
 import AddForm from "../../../common/components/AddForm";
 import "../../css/EditModalOverride.css";
 
@@ -39,6 +39,21 @@ const SavingsTable = ({ loading, setLoading }) => {
       title: "Description",
       dataIndex: "description",
       key: "description",
+      filterSearch: true,
+      filters:
+        savingDetails?.savingTransactions.length > 0 &&
+        savingDetails?.savingTransactions
+          .map(d => d.description)
+          .filter(
+            (item, index) =>
+              savingDetails?.savingTransactions
+                .map(d => d.description)
+                .indexOf(item) === index
+          )
+          .map(element => {
+            return { text: element, value: element };
+          }),
+      onFilter: (value, record) => record.description.startsWith(value),
     },
     {
       title: "Category",
@@ -50,11 +65,34 @@ const SavingsTable = ({ loading, setLoading }) => {
             : record.category}
         </>
       ),
+      filterSearch: true,
+      filters:
+        savingDetails?.savingTransactions.length > 0 &&
+        savingDetails?.savingTransactions
+          .map(d => (d.category === "Other" ? d.category_others : d.category))
+          .filter(
+            (item, index) =>
+              savingDetails?.savingTransactions
+                .map(d =>
+                  d.category === "Other" ? d.category_others : d.category
+                )
+                .indexOf(item) === index
+          )
+          .map(element => {
+            return { text: element, value: element };
+          }),
+      onFilter: (value, record) =>
+        record.category === "Other"
+          ? record.category_others.startsWith(value)
+          : record.category.startsWith(value),
     },
     {
       title: "Date",
       dataIndex: "date",
       key: "date",
+      sorter: (a, b) =>
+        moment(a.date, "DD/MM/YYYY").unix() -
+        moment(b.date, "DD/MM/YYYY").unix(),
     },
     {
       title: "Amount",

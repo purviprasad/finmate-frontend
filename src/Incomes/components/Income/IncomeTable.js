@@ -5,13 +5,14 @@ import AddForm from "../../../common/components/AddForm";
 import "../../css/EditModalOverride.css";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteIncomeTransaction } from "../../apis/IncomeManagementAPI";
-
+import moment from "moment";
 import {
   setEditDetails,
   resetEditState,
 } from "../../../common/actions/CommonAction";
 
 const IncomeTable = ({ loading, setLoading }) => {
+  const incomeDetails = useSelector(state => state.IncomeReducer);
   const [modal1Open, setModalOpen] = useState(false);
   const [addForm, setAddForm] = useState({});
   const [AddFormErrors, setAddFormErrors] = useState({});
@@ -37,6 +38,21 @@ const IncomeTable = ({ loading, setLoading }) => {
       title: "Description",
       dataIndex: "description",
       key: "description",
+      filterSearch: true,
+      filters:
+        incomeDetails?.incomeTransactions.length > 0 &&
+        incomeDetails?.incomeTransactions
+          .map(d => d.description)
+          .filter(
+            (item, index) =>
+              incomeDetails?.incomeTransactions
+                .map(d => d.description)
+                .indexOf(item) === index
+          )
+          .map(element => {
+            return { text: element, value: element };
+          }),
+      onFilter: (value, record) => record.description.startsWith(value),
     },
     {
       title: "Category",
@@ -48,11 +64,34 @@ const IncomeTable = ({ loading, setLoading }) => {
             : record.category}
         </>
       ),
+      filterSearch: true,
+      filters:
+        incomeDetails?.incomeTransactions.length > 0 &&
+        incomeDetails?.incomeTransactions
+          .map(d => (d.category === "Other" ? d.category_others : d.category))
+          .filter(
+            (item, index) =>
+              incomeDetails?.incomeTransactions
+                .map(d =>
+                  d.category === "Other" ? d.category_others : d.category
+                )
+                .indexOf(item) === index
+          )
+          .map(element => {
+            return { text: element, value: element };
+          }),
+      onFilter: (value, record) =>
+        record.category === "Other"
+          ? record.category_others.startsWith(value)
+          : record.category.startsWith(value),
     },
     {
       title: "Date",
       dataIndex: "date",
       key: "date",
+      sorter: (a, b) =>
+        moment(a.date, "DD/MM/YYYY").unix() -
+        moment(b.date, "DD/MM/YYYY").unix(),
     },
     {
       title: "Amount",
@@ -111,7 +150,6 @@ const IncomeTable = ({ loading, setLoading }) => {
       message: "Deleted Successfully",
     });
   };
-  const incomeDetails = useSelector(state => state.IncomeReducer);
 
   return (
     <>

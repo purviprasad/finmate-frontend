@@ -8,7 +8,7 @@ import {
   resetEditState,
 } from "../../../common/actions/CommonAction";
 import { deleteExpenseTransaction } from "../../apis/ExpenseManagementAPI";
-
+import moment from "moment";
 import "../../css/EditModalOverride.css";
 const ExpenseTable = ({ loading, setLoading }) => {
   const expenseDetails = useSelector(state => state.ExpenseReducer);
@@ -38,6 +38,21 @@ const ExpenseTable = ({ loading, setLoading }) => {
       title: "Description",
       dataIndex: "description",
       key: "description",
+      filterSearch: true,
+      filters:
+        expenseDetails?.expenseTransactions.length > 0 &&
+        expenseDetails?.expenseTransactions
+          .map(d => d.description)
+          .filter(
+            (item, index) =>
+              expenseDetails?.expenseTransactions
+                .map(d => d.description)
+                .indexOf(item) === index
+          )
+          .map(element => {
+            return { text: element, value: element };
+          }),
+      onFilter: (value, record) => record.description.startsWith(value),
     },
     {
       title: "Category",
@@ -49,11 +64,34 @@ const ExpenseTable = ({ loading, setLoading }) => {
             : record.category}
         </>
       ),
+      filterSearch: true,
+      filters:
+        expenseDetails?.expenseTransactions.length > 0 &&
+        expenseDetails?.expenseTransactions
+          .map(d => (d.category === "Other" ? d.category_others : d.category))
+          .filter(
+            (item, index) =>
+              expenseDetails?.expenseTransactions
+                .map(d =>
+                  d.category === "Other" ? d.category_others : d.category
+                )
+                .indexOf(item) === index
+          )
+          .map(element => {
+            return { text: element, value: element };
+          }),
+      onFilter: (value, record) =>
+        record.category === "Other"
+          ? record.category_others.startsWith(value)
+          : record.category.startsWith(value),
     },
     {
       title: "Date",
       dataIndex: "date",
       key: "date",
+      sorter: (a, b) =>
+        moment(a.date, "DD/MM/YYYY").unix() -
+        moment(b.date, "DD/MM/YYYY").unix(),
     },
     {
       title: "Amount",
