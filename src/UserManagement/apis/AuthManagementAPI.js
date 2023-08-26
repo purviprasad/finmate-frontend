@@ -28,8 +28,8 @@ export const register = (user, dispatch) => {
         resolve(response.data);
       })
       .catch(error => {
-        dispatch(setAuthError(error?.response?.data?.message));
-        reject(error?.response?.data?.message);
+        dispatch(setAuthError(error?.response?.data?.error?.msg));
+        reject(error?.response?.data?.error?.msg);
       });
   });
 };
