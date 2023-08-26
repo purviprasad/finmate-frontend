@@ -10,8 +10,9 @@ const CashInsights = ({ data }) => {
     colorField: "category",
     radius: 0.8,
     label: {
-      type: "outer",
-      content: "{name} Rs. {value}",
+      type: "spider",
+      labelHeight: 40,
+      content: "{name} Rs. {value} \n{percentage}",
     },
     interactions: [
       {
