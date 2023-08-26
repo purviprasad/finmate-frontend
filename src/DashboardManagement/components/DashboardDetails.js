@@ -10,13 +10,17 @@ import {
   notification,
 } from "antd";
 import { resetDashboardState } from "../actions/DashboardManagementAction";
-import { getMonthDashboardDetails } from "../apis/DashboardManagementAPI";
+import {
+  getMonthDashboardDetails,
+  getCashFlowDetails,
+} from "../apis/DashboardManagementAPI";
 import { useDispatch, useSelector } from "react-redux";
-import DashboardInsights from "./DashboardInsights/DashboardInsights";
+import TransactionInsights from "./DashboardInsights/TransactionInsights";
 import RecentTransactionsTable from "./commonInsights/RecentTransactionsTable";
 import "../css/EditModalOverride.css";
 import moment from "moment";
 import TotalCounterCards from "../../common/components/TotalCounterCards";
+import CashInsights from "./DashboardInsights/CashInsights";
 
 const { Option } = Select;
 const DashboardDetails = () => {
@@ -48,6 +52,7 @@ const DashboardDetails = () => {
     setLoading(true);
     try {
       await getMonthDashboardDetails(type, value, dispatch);
+      if (type !== "month") await getCashFlowDetails(type, value, dispatch);
     } catch (error) {
       notification.error({
         message: "Error",
@@ -132,7 +137,40 @@ const DashboardDetails = () => {
               headStyle={{ fontSize: "16px" }}
               style={{ borderRadius: "20px" }}
             >
-              <DashboardInsights type={type} value={value} />
+              <TransactionInsights type={type} value={value} />
+            </Card>
+          </Spin>
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col span={24}>
+          <Spin tip="Loading..." spinning={loading}>
+            <Card
+              title={
+                <>
+                  <div
+                    style={{ fontSize: "1.4rem" }}
+                  >{`Cash Distribution For ${type} - ${
+                    type === "month"
+                      ? `${monthMap[parseInt(value?.split("-")?.[1])]}-${
+                          value?.split("-")?.[0]
+                        }`
+                      : type === "quarter"
+                      ? `${value?.split("-")?.[1]}-${value?.split("-")?.[0]}`
+                      : `${value}`
+                  }`}</div>
+                </>
+              }
+              hoverable
+              headStyle={{ fontSize: "16px" }}
+              style={{ borderRadius: "20px" }}
+            >
+              <CashInsights
+                type={type}
+                value={value}
+                data={dashboardDetails?.dashboardPieDetails}
+              />
             </Card>
           </Spin>
         </Col>

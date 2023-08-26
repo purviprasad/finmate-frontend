@@ -2,6 +2,7 @@ import {
   SET_DASHBOARD_DETAILS,
   RESET_DASHBOARD_REDUCER,
   SET_RECENT_TRANSACTIONS,
+  SET_DASHBOARD_PIE_DETAILS,
 } from "../utils/Constants";
 const initialState = {
   monthMap: [
@@ -25,9 +26,33 @@ const initialState = {
   totalBalance: 0,
   dashboardDetails: [],
   recentTransactions: [],
+  dashboardPieDetails: [],
 };
 const DashboardReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_DASHBOARD_PIE_DETAILS: {
+      // Create an empty object to store the merged results
+      let mergedData = {};
+      let data = action.payload
+        ? action.payload.data?.length > 0
+          ? action.payload.data
+          : []
+        : [];
+      // Loop through the array and merge objects by category while adding up the amounts
+      data.forEach(item => {
+        let { category, amount, category_others } = item;
+        category = category === "Other" ? category_others : category;
+        if (!mergedData[category]) {
+          mergedData[category] = { category, amount: 0 };
+        }
+        mergedData[category].amount += amount;
+      });
+      const mergedArray = Object.values(mergedData);
+      return {
+        ...state,
+        dashboardPieDetails: mergedArray,
+      };
+    }
     case SET_DASHBOARD_DETAILS: {
       return {
         ...state,

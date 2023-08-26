@@ -2,7 +2,7 @@ import React from "react";
 import { Column } from "@ant-design/plots";
 import { useSelector } from "react-redux";
 
-const DashboardInsights = ({ type, value }) => {
+const TransactionInsights = ({ type, value }) => {
   const data = useSelector(state => state.DashboardReducer.dashboardDetails);
   const monthMap = useSelector(state => state.DashboardReducer.monthMap);
   const config = {
@@ -108,4 +108,4 @@ const DashboardInsights = ({ type, value }) => {
   return <Column {...config} />;
 };
 
-export default DashboardInsights;
+export default TransactionInsights;
