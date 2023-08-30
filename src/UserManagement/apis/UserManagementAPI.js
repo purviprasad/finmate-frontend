@@ -30,3 +30,16 @@ export const updateUserAvatar = (avatar, dispatch) => {
       });
   });
 };
+
+export const updateUserPassword = password => {
+  return new Promise(async (resolve, reject) => {
+    await api()
+      .put(`/user/updateUserPassword`, password)
+      .then(response => {
+        resolve(response.data?.msg);
+      })
+      .catch(error => {
+        reject(error?.response?.data?.error?.msg);
+      });
+  });
+};

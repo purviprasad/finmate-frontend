@@ -79,7 +79,7 @@ const Login = ({ setActivePage }) => {
   };
   return (
     <div>
-      <Space direction="vertical">
+      <Space direction="vertical" id="space">
         <span>Username or Email</span>
         <Input
           id="login-user"

@@ -8,16 +8,21 @@
   background-color: transparent;
 }
 
-.ant-input-affix-wrapper {
+#space > .ant-space-item > .ant-input-affix-wrapper {
   background-color: transparent;
 }
 
-.ant-input-affix-wrapper:hover {
+#space > .ant-space-item > .ant-input-affix-wrapper:hover{
   border: 2px solid #f9633a !important;
 }
 
-.ant-input-affix-wrapper:focus,
-.ant-input-affix-wrapper-focused {
+#space > .ant-space-item > .ant-input-affix-wrapper:focus{
+  border: 1px solid #f9633a !important;
+  box-shadow: 0 0 0 1px #f9633a;
+  border-right-width: 1px;
+  outline: 0;
+}
+#space > .ant-space-item >.ant-input-affix-wrapper-focused {
   border: 1px solid #f9633a !important;
   box-shadow: 0 0 0 1px #f9633a;
   border-right-width: 1px;
