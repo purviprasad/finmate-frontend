@@ -21,6 +21,9 @@ const { Sider, Header, Content } = Layout;
 const ProfileRoot = lazy(() =>
   import("./UserManagement/components/Profile/ProfileRoot")
 );
+const Settings = lazy(() =>
+  import("./UserManagement/components/Profile/Settings")
+);
 const AuthRoot = lazy(() =>
   import("./UserManagement/components/auth/AuthRoot")
 );
@@ -194,6 +197,7 @@ const App = () => {
                       path="/bill"
                       component={BillManagementRoot}
                     />
+                    <ProtectRoute exact path="/settings" component={Settings} />
                     {/* <Route path="*">
                       <Redirect to="/" />
                     </Route> */}

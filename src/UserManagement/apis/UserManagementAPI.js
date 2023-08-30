@@ -16,3 +16,17 @@ export const getUserDetails = dispatch => {
       });
   });
 };
+
+export const updateUserAvatar = (avatar, dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    await api()
+      .put(`/user/updateUserAvatar`, { avatar })
+      .then(response => {
+        dispatch(setUserDetails({ avatar }));
+        resolve(response.data?.msg);
+      })
+      .catch(error => {
+        reject(error?.response?.data?.error?.msg);
+      });
+  });
+};

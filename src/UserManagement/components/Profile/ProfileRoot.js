@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Avatar, Dropdown } from "antd";
-import { LogoutOutlined } from "@ant-design/icons";
+import { LogoutOutlined, SettingOutlined } from "@ant-design/icons";
 import { logout } from "../../apis/AuthManagementAPI";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -12,11 +13,11 @@ const ProfileRoot = () => {
   };
 
   const items = [
-    // {
-    //   label: <Link to={"/profile"}>My Profile</Link>,
-    //   key: "1",
-    //   icon: <UserOutlined />,
-    // },
+    {
+      label: <Link to={"/settings"}>Settings</Link>,
+      key: "1",
+      icon: <SettingOutlined />,
+    },
     {
       label: (
         <button
@@ -46,7 +47,11 @@ const ProfileRoot = () => {
             right: "30px",
             top: "25px",
             cursor: "pointer",
+            textTransform: "uppercase",
           }}
+          src={
+            process.env.PUBLIC_URL + "/images/avatars/" + userDetails?.avatar
+          }
         >
           {userDetails?.name?.charAt(0)}
         </Avatar>
