@@ -72,7 +72,7 @@ const BasicDetails = ({ userDetails }) => {
           message.error(err || "Something went wrong! Please try again");
         })
         .finally(() => {
-          setLoading(true);
+          setLoading(false);
         });
     }
   };
