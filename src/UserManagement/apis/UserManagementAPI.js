@@ -43,3 +43,17 @@ export const updateUserPassword = password => {
       });
   });
 };
+
+export const updateUserDetails = (userDetails, dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    await api()
+      .put(`/user/updateUserDetails`, userDetails)
+      .then(response => {
+        dispatch(setUserDetails(userDetails));
+        resolve(response.data?.msg);
+      })
+      .catch(error => {
+        reject(error?.response?.data?.error?.msg);
+      });
+  });
+};

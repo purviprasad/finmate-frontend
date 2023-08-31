@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Avatar, Button, Modal, notification } from "antd";
+import { Avatar, Button, Modal, message } from "antd";
 import { CameraOutlined } from "@ant-design/icons";
 import { updateUserAvatar } from "../../apis/UserManagementAPI";
 import { useDispatch } from "react-redux";
@@ -78,18 +78,13 @@ const UserAvatar = ({ name, avatar }) => {
       // Update avatar at backend
       await updateUserAvatar(selectedAvatar, dispatch)
         .then(response => {
-          notification.success({
-            message: "Success",
-            description: response,
-          });
+          message.success(response);
+          setCurrentAvatar(selectedAvatar);
+          setIsModalOpen(false);
         })
         .catch(error => {
-          notification.error({
-            message: "Error",
-            description: error,
-          });
+          message.error(error || "Something went wrong! Please try again.");
         });
-      setCurrentAvatar(selectedAvatar);
     } else {
       if (currentAvatar) {
         setLoading(true);
@@ -97,21 +92,15 @@ const UserAvatar = ({ name, avatar }) => {
         // Remove avatar at backend
         await updateUserAvatar(null, dispatch)
           .then(() => {
-            notification.success({
-              message: "Success",
-              description: "User avatar removed successfully!",
-            });
+            message.success("User avatar removed successfully!");
+            setIsModalOpen(false);
           })
           .catch(error => {
-            notification.error({
-              message: "Error",
-              description: error,
-            });
+            message.error(error || "Something went wrong! Please try again.");
           });
       }
     }
     setLoading(false);
-    setIsModalOpen(false);
   };
   const handleCancel = () => {
     setSelectedAvatar(currentAvatar);
