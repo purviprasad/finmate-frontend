@@ -66,6 +66,46 @@ const UserAvatar = ({ name, avatar }) => {
       id: 14,
       avatar: "14.png",
     },
+    {
+      id: 15,
+      avatar: "15.png",
+    },
+    {
+      id: 16,
+      avatar: "16.png",
+    },
+    {
+      id: 17,
+      avatar: "17.png",
+    },
+    {
+      id: 18,
+      avatar: "18.png",
+    },
+    {
+      id: 19,
+      avatar: "19.png",
+    },
+    {
+      id: 20,
+      avatar: "20.png",
+    },
+    {
+      id: 21,
+      avatar: "21.png",
+    },
+    {
+      id: 22,
+      avatar: "22.png",
+    },
+    {
+      id: 23,
+      avatar: "23.png",
+    },
+    {
+      id: 24,
+      avatar: "24.png",
+    },
   ];
 
   const [isModalOpen, setIsModalOpen] = useState(false);
