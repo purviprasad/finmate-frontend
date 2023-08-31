@@ -9,6 +9,7 @@ import { updateUserPassword } from "../../apis/UserManagementAPI";
 import "../../css/UpdatePasswordOverride.css";
 
 const UpdatePassword = () => {
+  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState({
     newpassword: "",
     confirmpassword: "",
@@ -20,8 +21,7 @@ const UpdatePassword = () => {
   };
 
   const handleUpdatePassword = async () => {
-    //TODO: Password Validation
-
+    // Password Validation
     if (password.newpassword === "") {
       setError({ ...error, newpassword: "Please enter new password" });
     } else if (password.confirmpassword === "") {
@@ -33,6 +33,7 @@ const UpdatePassword = () => {
       });
     } else if (password.newpassword === password.confirmpassword) {
       setError({ ...error, confirmpassword: "" });
+      setLoading(true);
       // Password update API call
       await updateUserPassword(password)
         .then(response => {
@@ -43,6 +44,9 @@ const UpdatePassword = () => {
         })
         .catch(error => {
           message.error(error);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     }
   };
@@ -142,8 +146,9 @@ const UpdatePassword = () => {
             type="primary"
             icon={<EditOutlined />}
             onClick={handleUpdatePassword}
+            loading={loading}
           >
-            Update Password
+            {loading ? "Updating Password..." : "Update Password"}
           </Button>
         </Col>
       </Row>
