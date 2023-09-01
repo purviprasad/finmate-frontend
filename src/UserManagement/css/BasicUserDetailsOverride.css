@@ -1,0 +1,4 @@
+
+#col-basic-user-details-selector > .ant-select:not(.ant-select-customize-input) .ant-select-selector{
+    border-radius: 0px !important;
+}

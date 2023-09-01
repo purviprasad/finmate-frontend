@@ -11,6 +11,7 @@ import {
 import { Input, Button, Row, Col, Select, Alert, message } from "antd";
 import { useDispatch } from "react-redux";
 import { updateUserDetails } from "../../apis/UserManagementAPI";
+import "../../css/BasicUserDetailsOverride.css";
 
 const BasicDetails = ({ userDetails }) => {
   const dispatch = useDispatch();
@@ -204,7 +205,7 @@ const BasicDetails = ({ userDetails }) => {
             />
           )}
         </Col>
-        <Col span={10} offset={1}>
+        <Col span={10} offset={1} id="col-basic-user-details-selector">
           <div style={{ fontWeight: 500, textAlign: "left", color: "#7c7e8c" }}>
             <UserOutlined /> GENDER
           </div>
@@ -279,7 +280,7 @@ const BasicDetails = ({ userDetails }) => {
             />
           )}
         </Col>
-        <Col span={10} offset={1}>
+        <Col span={10} offset={1} id="col-basic-user-details-selector">
           <div style={{ fontWeight: 500, textAlign: "left", color: "#7c7e8c" }}>
             <HeartOutlined /> MARITAL STATUS
           </div>
