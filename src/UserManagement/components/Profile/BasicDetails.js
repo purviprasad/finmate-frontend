@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   EditOutlined,
   PhoneOutlined,
@@ -24,6 +24,11 @@ const BasicDetails = ({ userDetails }) => {
     dob: "",
     email: "",
   });
+
+  // updating the editDetails state when userDetails changes
+  useEffect(() => {
+    setEditDetails({ ...userDetails });
+  }, [userDetails]);
   const handleChange = e => {
     setEditDetails({ ...editDetails, [e.target.name]: e.target.value });
     setErrorDetails({ ...errorDetails, [e.target.name]: "" });
