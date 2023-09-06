@@ -39,7 +39,7 @@ const Settings = () => {
                   textAlign: "center",
                 }}
               >
-                {userDetails?.name}
+                @{userDetails?.username}
               </span>
             </Col>
           </Row>
